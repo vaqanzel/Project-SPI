@@ -49,19 +49,11 @@ class LoginController extends Controller
             ]
         );
 
-        // Determine if the user is logging in with email or username
-            if (filter_var($request->username, FILTER_VALIDATE_EMAIL)) {
-                // User is logging in with email and must have level 1
-                $user = User::where('email', $request->username)->where('id_level', 1)->first();
-            } else {
-                // User is logging in with username and must have level 6
-                $areSuperAdmin = User::where('username', $request->username)->where('id_level', 1)->first();
-                if ($areSuperAdmin) {
-                    $user = User::where('username', $request->username)->where('id_level', 6)->first();
-                } else {
-                    $user = User::where('username', $request->username)->first();
-                }
-            }
+        if (filter_var($request->username, FILTER_VALIDATE_EMAIL)) {
+            $user = User::where('email', $request->username)->first();
+        } else {
+            $user = User::where('username', $request->username)->first();
+        }
 
         // Check if the user exists and if the password is correct
         if ($user && Hash::check($request->password, $user->password)) {

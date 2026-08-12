@@ -357,7 +357,9 @@ $welcomePage = function () {
         ],
     ];
 
-    return view('welcome', compact('beritaAcaras', 'moreMinutesExist', 'welcomeStats'));
+    $auditProgressPercent = $totalAudits > 0 ? (int) round(($completedAudits / $totalAudits) * 100) : 0;
+
+    return view('welcome', compact('beritaAcaras', 'moreMinutesExist', 'welcomeStats', 'auditProgressPercent'));
 };
 
 Route::get('/welcome', $welcomePage)->name('welcome');

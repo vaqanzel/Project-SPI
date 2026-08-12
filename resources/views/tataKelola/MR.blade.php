@@ -2,6 +2,62 @@
 
 @section('title', 'MR')
 
+@push('style')
+<style>
+    .spi-mr-wrap {
+        padding-top: 12px !important;
+    }
+
+    .spi-mr-wrap .section > *:first-child {
+        margin-top: 0;
+    }
+
+    .spi-mr-wrap .spi-page-header {
+        margin-top: -4px !important;
+        margin-bottom: 18px;
+    }
+
+    .spi-mr-wrap .section-body {
+        padding-top: 0;
+    }
+
+    .spi-mr-toolbar {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 14px;
+        flex-wrap: wrap;
+        padding: 14px 16px;
+        margin-bottom: 20px;
+        background: #fff;
+        border: 1px solid #DBEAFE;
+        border-radius: 16px;
+        box-shadow: 0 4px 16px rgba(23, 63, 158, 0.08);
+    }
+
+    .spi-mr-toolbar-group {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+    .spi-mr-toolbar .spi-btn {
+        min-height: 38px;
+    }
+
+    @media (max-width: 576px) {
+        .spi-mr-wrap {
+            padding-top: 8px !important;
+        }
+
+        .spi-mr-toolbar {
+            padding: 12px;
+        }
+    }
+</style>
+@endpush
+
 @section('main')
 @foreach($elements as $element)
     @foreach($element->ManagementSubElement as $subElement)
@@ -295,54 +351,74 @@
 @endforeach 
 @endforeach
 
-<div class="main-content">
+<div class="main-content spi-mr-wrap" style="position:fixed; top:70px; left:280px; right:0; bottom:0; margin:0 !important; padding:24px 30px 20px !important; overflow-y:auto; overflow-x:hidden; z-index:1;">
     <section class="section">
-        <div class="section-header d-flex align-items-center">
-            <a href="{{ url()->previous() }}" class="mr-3"><i class="fas fa-arrow-left" style="font-size: 1.3rem"></i></a>
-            <h1>MR</h1>
+
+        {{-- ─── Page Header ─── --}}
+        <div class="spi-page-header">
+            <div class="spi-page-header-left">
+                <div class="spi-page-breadcrumb">
+                    <i class="fas fa-home" style="font-size:0.7rem;"></i>
+                    <span class="spi-page-breadcrumb-sep"><i class="fas fa-chevron-right"></i></span>
+                    <a href="{{ url('/dashboard') }}">Dashboard</a>
+                    <span class="spi-page-breadcrumb-sep"><i class="fas fa-chevron-right"></i></span>
+                    <span class="spi-page-breadcrumb-current">Maturity Rating (MR)</span>
+                </div>
+                <h1 class="spi-page-title">Maturity Rating</h1>
+                <p class="spi-page-subtitle">Kelola elemen, sub elemen, topik, dan uraian penilaian kapabilitas pengawasan internal.</p>
+            </div>
+            <div class="spi-page-header-actions">
+                <a href="{{ url()->previous() }}" class="spi-btn spi-btn-ghost">
+                    <i class="fas fa-arrow-left"></i>
+                    Kembali
+                </a>
+            </div>
         </div>
+
         <div class="section-body">
             @if(session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
+                <div class="spi-alert spi-alert-success" style="margin-bottom:20px;">
+                    <i class="fas fa-check-circle spi-alert-icon"></i>
+                    <div class="spi-alert-body">{{ session('success') }}</div>
+                    <button class="spi-alert-close" onclick="this.closest('.spi-alert').remove();">&times;</button>
                 </div>
-                @elseif($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>@foreach($errors->all() as $error)
-                            <li>{{ $error }}</li>
+            @elseif($errors->any())
+                <div class="spi-alert spi-alert-danger" style="margin-bottom:20px;">
+                    <i class="fas fa-times-circle spi-alert-icon"></i>
+                    <div class="spi-alert-body">
+                        <ul style="margin:0; padding-left:16px;">
+                            @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
                             @endforeach
                         </ul>
                     </div>
+                </div>
             @endif
-            <div class="d-flex justify-content-between mb-3">
-                <div>
+            <div class="spi-mr-toolbar">
                 @if(auth()->user()->id_level == 1 || auth()->user()->id_level == 2 || auth()->user()->id_level == 6)
-                <a href="{{ route('entitas.index') }}" class="btn btn-md btn-outline-primary mb-3"
-                    style="font-size: 0.85rem !important;">ENTITAS</a>
-                <a href="{{ route('bobot.index') }}" class="btn btn-md btn-outline-primary mb-3"
-                    style="font-size: 0.85rem !important;">BOBOT</a>
-                <a href="{{ route('verif.index') }}" class="btn btn-md btn-outline-primary mb-3"
-                    style="font-size: 0.85rem !important;">VALIDASI</a>
-                <a href="{{ route('kesimpulan.index') }}" class="btn btn-md btn-outline-primary mb-3"
-                    style="font-size: 0.85rem !important;">KESIMPULAN</a>
-                </div>
+                    <div class="spi-mr-toolbar-group" style="margin-bottom:10px;">
+                        <a href="{{ route('entitas.index') }}" class="spi-btn spi-btn-outline spi-btn-sm">Entitas</a>
+                        <a href="{{ route('bobot.index') }}" class="spi-btn spi-btn-outline spi-btn-sm">Bobot</a>
+                        <a href="{{ route('verif.index') }}" class="spi-btn spi-btn-outline spi-btn-sm">Validasi</a>
+                        <a href="{{ route('kesimpulan.index') }}" class="spi-btn spi-btn-outline spi-btn-sm">Kesimpulan</a>
+                    </div>
                 @endif
-                <div>
                 @if(auth()->user()->id_level == 1 || auth()->user()->id_level == 2)
-                <button type="button" class="btn btn-success mr-2" style="min-width: 120px;" data-toggle="modal" data-target="#addElementModal">
-                    <i class="fas fa-plus"></i> Elemen 
-                </button>
-                <button type="button" class="btn btn-success mr-2" style="min-width: 120px;" data-toggle="modal" data-target="#addSubElementModal">
-                    <i class="fas fa-plus"></i> Sub Elemen 
-                </button>
-                <button type="button" class="btn btn-success mr-2" style="min-width: 120px;" data-toggle="modal" data-target="#addTopicModal">
-                    <i class="fas fa-plus"></i> Topik 
-                </button>
-                <button type="button" class="btn btn-success mr-2" style="min-width: 120px;" data-toggle="modal" data-target="#addUraianModal">
-                    <i class="fas fa-plus"></i> Uraian 
-                </button>
+                    <div class="spi-mr-toolbar-group">
+                        <button type="button" class="spi-btn spi-btn-primary spi-btn-sm" data-toggle="modal" data-target="#addElementModal">
+                            <i class="fas fa-plus"></i> Elemen
+                        </button>
+                        <button type="button" class="spi-btn spi-btn-success spi-btn-sm" data-toggle="modal" data-target="#addSubElementModal">
+                            <i class="fas fa-plus"></i> Sub Elemen
+                        </button>
+                        <button type="button" class="spi-btn spi-btn-success spi-btn-sm" data-toggle="modal" data-target="#addTopicModal">
+                            <i class="fas fa-plus"></i> Topik
+                        </button>
+                        <button type="button" class="spi-btn spi-btn-success spi-btn-sm" data-toggle="modal" data-target="#addUraianModal">
+                            <i class="fas fa-plus"></i> Uraian
+                        </button>
+                    </div>
                 @endif
-                </div>
             </div>
         
         @if($elements->isEmpty())
@@ -350,22 +426,25 @@
         @else
             @foreach($elements as $index => $element)
             <div class="accordion mb-3" id="accordionExample{{ $index }}">
-                <div class="card shadow-sm border-0 rounded">
-                    <div class="card-header d-flex justify-content-between align-items-center" style="background-color: #c5c8c3; color: #fff;" id="heading{{ $index }}">
-                        <h5 class="mb-0">
-                            <button class="btn btn-link" style="color: #003366; font-weight: bold;" type="button" data-toggle="collapse" data-target="#collapse{{ $index }}" aria-expanded="true" aria-controls="collapse{{ $index }}">
+                <div style="border-radius:12px; overflow:hidden; border:1px solid #DBEAFE; box-shadow:0 2px 8px rgba(23,63,158,0.08);">
+                    <div class="card-header d-flex justify-content-between align-items-center" style="background:linear-gradient(135deg,#173F9E,#1E4FBF); color:#fff; padding:14px 18px; cursor:pointer;" id="heading{{ $index }}">
+                        <h5 class="mb-0" style="display:flex; align-items:center; gap:10px;">
+                            <div style="width:26px; height:26px; background:rgba(255,255,255,0.18); border-radius:7px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                                <i class="fas fa-layer-group" style="font-size:0.75rem;"></i>
+                            </div>
+                            <button class="btn btn-link" style="color:#fff; font-weight:700; font-size:0.9rem; text-decoration:none; padding:0;" type="button" data-toggle="collapse" data-target="#collapse{{ $index }}" aria-expanded="true" aria-controls="collapse{{ $index }}">
                                 {{ $element->elemen }}
                             </button>
                         </h5>
                         @if(auth()->user()->id_level == 1 || auth()->user()->id_level == 2)
-                        <div class="ml-auto d-flex">
-                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editElementModal{{ $element->id }}" style="font-size: 0.875rem; padding: 0.375rem 0.75rem; margin-right: 0.5rem;">
+                        <div style="display:flex; gap:6px; align-items:center;">
+                            <button type="button" class="spi-btn spi-btn-icon-sm" style="background:rgba(255,255,255,0.2); color:#fff; border-color:rgba(255,255,255,0.3);" data-toggle="modal" data-target="#editElementModal{{ $element->id }}" title="Edit Elemen">
                                 <i class="fa fa-edit"></i>
                             </button>
                             <form action="{{ route('MR.destroy', ['id' => $element->id]) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus elemen ini?');" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger" style="font-size: 0.875rem; padding: 0.375rem 0.75rem;">
+                                <button type="submit" class="spi-btn spi-btn-icon-sm" style="background:rgba(239,68,68,0.3); color:#fff; border-color:rgba(239,68,68,0.4);" title="Hapus Elemen">
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </form>
@@ -379,22 +458,25 @@
                             @else
                                 @foreach($element->ManagementSubElement as $subIndex => $subElement)
                                 <div class="accordion" id="subAccordion{{ $index }}{{ $subIndex }}">
-                                    <div class="card shadow-sm border-0 rounded">
-                                        <div class="card-header d-flex justify-content-between align-items-center" style="background-color: #d6c5b5; color: #000;" id="subHeading{{ $index }}{{ $subIndex }}">
-                                            <h6 class="mb-0">
-                                                <button class="btn btn-link" style="color: #003366; font-weight: bold;" type="button" data-toggle="collapse" data-target="#subCollapse{{ $index }}{{ $subIndex }}" aria-expanded="true" aria-controls="subCollapse{{ $index }}{{ $subIndex }}">
+                                    <div style="border-radius:10px; overflow:hidden; border:1px solid #BFDBFE; margin-bottom:8px;">
+                                        <div class="card-header d-flex justify-content-between align-items-center" style="background:#1E5BA8; color:#fff; padding:11px 16px; cursor:pointer;" id="subHeading{{ $index }}{{ $subIndex }}">
+                                            <h6 class="mb-0" style="display:flex; align-items:center; gap:8px;">
+                                                <div style="width:22px; height:22px; background:rgba(255,255,255,0.18); border-radius:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                                                    <i class="fas fa-folder" style="font-size:0.65rem;"></i>
+                                                </div>
+                                                <button class="btn btn-link" style="color:#fff; font-weight:600; font-size:0.85rem; text-decoration:none; padding:0;" type="button" data-toggle="collapse" data-target="#subCollapse{{ $index }}{{ $subIndex }}" aria-expanded="true" aria-controls="subCollapse{{ $index }}{{ $subIndex }}">
                                                     {{ $subElement->sub_elemen }}
                                                 </button>
                                             </h6>
                                             @if(auth()->user()->id_level == 1 || auth()->user()->id_level == 2)
-                                            <div class="ml-auto d-flex">
-                                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editSubElementModal{{ $subElement->id }}" style="font-size: 0.875rem; padding: 0.375rem 0.75rem; margin-right: 0.5rem;">
+                                            <div style="display:flex; gap:6px;">
+                                                <button type="button" class="spi-btn spi-btn-icon-sm" style="background:rgba(255,255,255,0.2); color:#fff; border-color:rgba(255,255,255,0.3);" data-toggle="modal" data-target="#editSubElementModal{{ $subElement->id }}" title="Edit Sub Elemen">
                                                     <i class="fa fa-edit"></i>
                                                 </button>
                                                 <form action="{{ route('subElemen.destroy', $subElement->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus sub elemen ini?');" style="display:inline;">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger" style="font-size: 0.875rem; padding: 0.375rem 0.75rem;">
+                                                    <button type="submit" class="spi-btn spi-btn-icon-sm" style="background:rgba(239,68,68,0.3); color:#fff; border-color:rgba(239,68,68,0.4);" title="Hapus Sub Elemen">
                                                         <i class="fa fa-trash"></i>
                                                     </button>
                                                 </form>
@@ -408,22 +490,25 @@
                                                 @else
                                                     @foreach($subElement->ManagementTopic as $topicIndex => $topic)
                                                     <div class="accordion" id="topicAccordion{{ $index }}{{ $subIndex }}{{ $topicIndex }}">
-                                                        <div class="card shadow-sm border-0 rounded">
-                                                            <div class="card-header text-white d-flex justify-content-between align-items-center" style="background-color: #e4d8cd; color: #000;" id="topicHeading{{ $index }}{{ $subIndex }}{{ $topicIndex }}">
-                                                                <h6 class="mb-0">
-                                                                    <button class="btn btn-link" style="color: #003366; font-weight: bold;" type="button" data-toggle="collapse" data-target="#topicCollapse{{ $index }}{{ $subIndex }}{{ $topicIndex }}" aria-expanded="true" aria-controls="topicCollapse{{ $index }}{{ $subIndex }}{{ $topicIndex }}">
+                                                        <div style="border-radius:9px; overflow:hidden; border:1px solid #E0E7FF; margin-bottom:6px;">
+                                                            <div class="card-header d-flex justify-content-between align-items-center" style="background:#EAF0FF; color:#1E293B; padding:10px 14px; cursor:pointer;" id="topicHeading{{ $index }}{{ $subIndex }}{{ $topicIndex }}">
+                                                                <h6 class="mb-0" style="display:flex; align-items:center; gap:8px;">
+                                                                    <div style="width:20px; height:20px; background:#DBEAFE; border-radius:5px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                                                                        <i class="fas fa-file-alt" style="font-size:0.6rem; color:#173F9E;"></i>
+                                                                    </div>
+                                                                    <button class="btn btn-link" style="color:#1E3A8A; font-weight:600; font-size:0.83rem; text-decoration:none; padding:0;" type="button" data-toggle="collapse" data-target="#topicCollapse{{ $index }}{{ $subIndex }}{{ $topicIndex }}" aria-expanded="true" aria-controls="topicCollapse{{ $index }}{{ $subIndex }}{{ $topicIndex }}">
                                                                         {{ $topic->topik }}
                                                                     </button>
                                                                 </h6>
                                                                 @if(auth()->user()->id_level == 1 || auth()->user()->id_level == 2)
-                                                                <div class="ml-auto d-flex">
-                                                                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editTopicModal{{ $topic->id }}" style="font-size: 0.875rem; padding: 0.375rem 0.75rem; margin-right: 0.5rem;">
+                                                                <div style="display:flex; gap:6px;">
+                                                                    <button type="button" class="spi-btn spi-btn-icon-sm" data-toggle="modal" data-target="#editTopicModal{{ $topic->id }}" title="Edit Topik">
                                                                         <i class="fa fa-edit"></i>
                                                                     </button>
                                                                     <form action="{{ route('topic.destroy', $topic->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus topik ini?');" style="display:inline;">
                                                                         @csrf
                                                                         @method('DELETE')
-                                                                        <button type="submit" class="btn btn-danger" style="font-size: 0.875rem; padding: 0.375rem 0.75rem;">
+                                                                        <button type="submit" class="spi-btn spi-btn-icon-sm spi-btn-danger" title="Hapus Topik">
                                                                             <i class="fa fa-trash"></i>
                                                                         </button>
                                                                     </form>
@@ -434,11 +519,12 @@
                                                                 <div class="card-body">
                                                                     @foreach($topic->Uraian->groupBy('level') as $level => $uraians)
                                                                     <div class="accordion" id="levelAccordion{{ $index }}{{ $subIndex }}{{ $topicIndex }}{{ $level }}">
-                                                                        <div class="card shadow-sm border-0 rounded">
-                                                                            <div class="card-header text-dark d-flex justify-content-between align-items-center" style="background-color: #f1ebe6; color: #000;" id="levelHeading{{ $index }}{{ $subIndex }}{{ $topicIndex }}{{ $level }}">
-                                                                                <h6 class="mb-0">
-                                                                                    <button class="btn btn-link" style="color: #003366; font-weight: bold;" type="button" data-toggle="collapse" data-target="#levelCollapse{{ $index }}{{ $subIndex }}{{ $topicIndex }}{{ $level }}" aria-expanded="true" aria-controls="levelCollapse{{ $index }}{{ $subIndex }}{{ $topicIndex }}{{ $level }}">
-                                                                                        Level {{ $level }}
+                                                                        <div style="border-radius:8px; overflow:hidden; border:1px solid #F1F5F9; margin-bottom:6px;">
+                                                                            <div class="card-header d-flex justify-content-between align-items-center" style="background:#F8FAFC; color:#1E293B; padding:9px 14px; border-bottom:1px solid #E2E8F0; cursor:pointer;" id="levelHeading{{ $index }}{{ $subIndex }}{{ $topicIndex }}{{ $level }}">
+                                                                                <h6 class="mb-0" style="display:flex; align-items:center; gap:8px;">
+                                                                                    <span style="font-size:0.72rem; font-weight:700; color:#fff; background:#173F9E; padding:2px 8px; border-radius:20px;">Lvl {{ $level }}</span>
+                                                                                    <button class="btn btn-link" style="color:#1E293B; font-weight:600; font-size:0.82rem; text-decoration:none; padding:0;" type="button" data-toggle="collapse" data-target="#levelCollapse{{ $index }}{{ $subIndex }}{{ $topicIndex }}{{ $level }}" aria-expanded="true" aria-controls="levelCollapse{{ $index }}{{ $subIndex }}{{ $topicIndex }}{{ $level }}">
+                                                                                        Uraian Level {{ $level }}
                                                                                     </button>
                                                                                 </h6>
                                                                             </div>
@@ -466,22 +552,18 @@
                                                                                                                 {{ $uraian->uraian }}
                                                                                                             </td>
                                                                                                             @if(auth()->user()->id_level == 1 || auth()->user()->id_level == 2)
-                                                                                                            <td>
-                                                                                                                <div class="row">
-                                                                                                                    <div class="col-6">
-                                                                                                                        <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editUraianModal{{ $uraian->id }}" style="font-size: 0.875rem; padding: 0.375rem 0.75rem; margin-right: 0.5rem;">
-                                                                                                                            <i class="fa fa-edit"></i>
+                                                                                                            <td style="white-space:nowrap;">
+                                                                                                                <div style="display:flex; gap:4px;">
+                                                                                                                    <button type="button" class="spi-btn spi-btn-icon-sm" data-toggle="modal" data-target="#editUraianModal{{ $uraian->id }}" title="Edit Uraian">
+                                                                                                                        <i class="fa fa-edit"></i>
+                                                                                                                    </button>
+                                                                                                                    <form action="{{ route('uraian.destroy', $uraian->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus uraian ini?');" style="display:inline;">
+                                                                                                                        @csrf
+                                                                                                                        @method('DELETE')
+                                                                                                                        <button type="submit" class="spi-btn spi-btn-icon-sm spi-btn-danger" title="Hapus Uraian">
+                                                                                                                            <i class="fa fa-trash"></i>
                                                                                                                         </button>
-                                                                                                                    </div>
-                                                                                                                    <div class="col-6">
-                                                                                                                        <form action="{{ route('uraian.destroy', $uraian->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus uraian ini?');" style="display:inline;">
-                                                                                                                            @csrf
-                                                                                                                            @method('DELETE')
-                                                                                                                            <button type="submit" class="btn btn-danger btn-sm" style="font-size: 0.875rem; padding: 0.375rem 0.75rem;">
-                                                                                                                                <i class="fa fa-trash"></i>
-                                                                                                                            </button>
-                                                                                                                        </form>
-                                                                                                                    </div>
+                                                                                                                    </form>
                                                                                                                 </div>
                                                                                                             </td>
                                                                                                             @endif

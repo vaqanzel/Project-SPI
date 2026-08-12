@@ -1,33 +1,40 @@
-<div class="rtm-form mb-4 border rounded p-3 shadow-sm">
-    <div class="form-group">
-        <label class="font-weight-bold">Temuan</label>
-        <textarea name="rtm[{{ $index }}][temuan]" class="form-control">{{ $rtm->temuan ?? '' }}</textarea>
-    </div>
-    
-    <div class="form-group">
-        <label class="font-weight-bold">Rekomendasi</label>
-        <textarea name="rtm[{{ $index }}][rekomendasi]" class="form-control">{{ $rtm->rekomendasi ?? '' }}</textarea>
+{{-- ════════════════════════════════════════════════════════════════
+     RTM Partial Form — dipakai di tindakLanjut/create.blade.php
+     Semua name, variable ($index, $rtm) dipertahankan 100%
+════════════════════════════════════════════════════════════════ --}}
+<div class="rtm-form" style="border:1px solid #E2E8F0; border-radius:12px; padding:18px; background:#FAFBFC; margin-bottom:12px;">
+
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+        <div style="display:flex; align-items:center; gap:8px;">
+            <div style="width:28px; height:28px; border-radius:8px; background:#EAF0FF; display:flex; align-items:center; justify-content:center;">
+                <i class="fas fa-clipboard-list" style="font-size:0.75rem; color:#173F9E;"></i>
+            </div>
+            <span style="font-weight:600; font-size:0.84rem; color:#1E293B;">Item RTM</span>
+        </div>
+        <button type="button" class="spi-btn spi-btn-danger spi-btn-icon-sm remove-rtm" title="Hapus RTM">
+            <i class="fas fa-trash"></i>
+        </button>
     </div>
 
-    <div class="d-flex justify-content-end mb-3">
-        <button type="button" class="btn btn-sm btn-danger remove-rtm">Hapus</button>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="spi-form-group">
+                <label class="spi-form-label" style="font-size:0.8rem;">Temuan</label>
+                <textarea name="rtm[{{ $index }}][temuan]"
+                          class="spi-form-control"
+                          rows="3"
+                          placeholder="Masukkan temuan audit...">{{ $rtm->temuan ?? '' }}</textarea>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="spi-form-group">
+                <label class="spi-form-label" style="font-size:0.8rem;">Rekomendasi</label>
+                <textarea name="rtm[{{ $index }}][rekomendasi]"
+                          class="spi-form-control"
+                          rows="3"
+                          placeholder="Masukkan rekomendasi tindak lanjut...">{{ $rtm->rekomendasi ?? '' }}</textarea>
+            </div>
+        </div>
     </div>
+
 </div>
-
-
-{{-- <div class="rtm-form mb-4 border rounded p-3 shadow-sm">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h5>RTM</h5>
-        <button type="button" class="btn btn-sm btn-danger remove-rtm">Hapus</button>
-    </div>
-
-    <div class="form-group">
-        <label>Temuan</label>
-        <input type="text" name="rtms[__INDEX__][temuan]" value="{{ old('rtms.__INDEX__.temuan', isset($rtm) ? $rtm->temuan : '') }}" class="form-control">
-    </div>
-
-    <div class="form-group">
-        <label>Rekomendasi</label>
-        <input type="text" name="rtms[__INDEX__][rekomendasi]" value="{{ old('rtms.__INDEX__.rekomendasi', isset($rtm) ? $rtm->rekomendasi : '') }}" class="form-control">
-    </div>
-</div> --}}

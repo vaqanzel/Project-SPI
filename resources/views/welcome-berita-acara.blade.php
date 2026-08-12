@@ -4,12 +4,11 @@
 @php($isWelcomePage = true)
 
 @push('style')
+    <link rel="stylesheet" href="{{ asset('css/sispi-theme.css') }}">
     <style>
         body {
-            background: #f7fafc;
+            background: #F7F9FC;
         }
-
-@include('components.minute-card-styles')
 
         #app .main-wrapper {
             display: block;
@@ -20,95 +19,122 @@
             margin-left: 0;
         }
 
-        .welcome-berita-wrapper {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
         .welcome-berita-hero {
-            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
-            color: white;
-            padding: 120px 0 80px;
+            background: linear-gradient(135deg, #0B1736 0%, #173F9E 100%);
+            color: #FFFFFF;
+            padding: 125px 0 70px;
+            position: relative;
         }
 
-        .welcome-berita-hero .hero-content {
-            max-width: 720px;
-            margin: 0 auto;
+        .search-filter-card {
+            background: #FFFFFF;
+            border-radius: 18px;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 10px 30px rgba(11, 23, 54, 0.06);
+            padding: 28px;
+            margin-top: -40px;
+            position: relative;
+            z-index: 10;
         }
 
-        .welcome-berita-hero .btn {
+        .search-input-wrapper {
+            position: relative;
+        }
+
+        .search-input-wrapper i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94A3B8;
+        }
+
+        .search-input-field {
+            height: 48px;
+            padding-left: 44px;
+            border-radius: 12px;
+            border: 1.5px solid #E2E8F0;
+            background: #F7F9FC;
+            font-size: 0.95rem;
+            width: 100%;
+        }
+
+        .search-input-field:focus {
+            background: #FFFFFF;
+            border-color: #173F9E;
+            box-shadow: 0 0 0 4px rgba(23, 63, 158, 0.1);
+            outline: none;
+        }
+
+        .filter-chip-btn {
+            padding: 8px 22px;
             border-radius: 999px;
-            padding: 10px 28px;
-            border-width: 2px;
+            background: #FFFFFF;
+            border: 1.5px solid #E2E8F0;
+            color: #64748B;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
 
-        .welcome-berita-main {
-            flex: 1;
-        }
-
-        @media (max-width: 768px) {
-            .welcome-berita-hero {
-                padding: 80px 0 60px;
-            }
-
-            .welcome-berita-hero .display-4 {
-                font-size: 2.5rem;
-            }
+        .filter-chip-btn:hover, .filter-chip-btn.active {
+            background: #173F9E;
+            color: #FFFFFF;
+            border-color: #173F9E;
         }
     </style>
 @endpush
 
 @section('main')
     <div class="welcome-berita-wrapper">
+        <!-- Hero Section -->
         <header class="welcome-berita-hero">
-            <div class="container">
-                <div class="hero-content text-center">
-                    <h1 class="display-4">Seluruh Berita Acara</h1>
-                    <p class="lead">Telusuri riwayat lengkap kegiatan, dokumen pendukung, serta dokumentasi visual.</p>
-                    <a href="{{ url('/welcome') }}" class="btn btn-outline-light mt-3">
-                        <i class="fas fa-chevron-left mr-2"></i>Kembali ke Beranda
-                    </a>
-                </div>
+            <div class="sispi-container text-center">
+                <span class="sispi-badge sispi-badge-gold mb-3">Berita Acara</span>
+                <h1 style="font-size: 2.75rem; font-weight: 800; color: #ffffff; margin-bottom: 12px;">Ringkasan Kegiatan</h1>
+                <p style="font-size: 1.1rem; color: #CBD5E1; max-width: 640px; margin: 0 auto 24px;">
+                    Pantau berita acara terbaru lengkap dengan dokumentasi rapat dan bukti visual.
+                </p>
+                <a href="{{ url('/') }}" class="sispi-btn sispi-btn-outline" style="border-color: rgba(255,255,255,0.4); color: #ffffff !important; padding: 8px 20px;">
+                    <i class="fas fa-arrow-left mr-1"></i> Kembali ke Beranda
+                </a>
             </div>
         </header>
 
-        <main class="welcome-berita-main py-5">
-            <div class="container">
-                <div class="card shadow-sm mb-4">
-                    <div class="card-body">
-                        <form method="GET" action="{{ route('welcome.berita-acara') }}">
-                            <div class="form-row">
-                                <div class="form-group col-md-4 mb-3">
-                                    <label for="search">Pencarian</label>
-                                    <input id="search" type="text" name="search" class="form-control"
-                                           value="{{ $filters['search'] ?? '' }}" placeholder="Judul, ringkasan, lokasi">
-                                </div>
-                                <div class="form-group col-md-3 mb-3">
-                                    <label for="start_date">Tanggal Mulai</label>
-                                    <input id="start_date" type="date" name="start_date" class="form-control"
-                                           value="{{ $filters['start_date'] ?? '' }}">
-                                </div>
-                                <div class="form-group col-md-3 mb-3">
-                                    <label for="end_date">Tanggal Selesai</label>
-                                    <input id="end_date" type="date" name="end_date" class="form-control"
-                                           value="{{ $filters['end_date'] ?? '' }}">
-                                </div>
-                                <div class="form-group col-md-2 d-flex align-items-end mb-3">
-                                    <div class="btn-group btn-block">
-                                        <button type="submit" class="btn btn-primary btn-block">
-                                            <i class="fas fa-search mr-1"></i>Cari
-                                        </button>
-                                        <a href="{{ route('welcome.berita-acara') }}" class="btn btn-outline-secondary">
-                                            Reset
-                                        </a>
-                                    </div>
+        <!-- Search & Content Section -->
+        <main class="py-5">
+            <div class="sispi-container">
+                <!-- Search Bar & Filter Chips -->
+                <div class="search-filter-card mb-5">
+                    <form method="GET" action="{{ route('welcome.berita-acara') }}">
+                        <div class="form-row align-items-center">
+                            <div class="col-md-6 mb-3 mb-md-0">
+                                <div class="search-input-wrapper">
+                                    <i class="fas fa-search"></i>
+                                    <input id="search" type="text" name="search" class="search-input-field"
+                                           value="{{ $filters['search'] ?? '' }}" placeholder="Cari berita acara...">
                                 </div>
                             </div>
-                        </form>
-                    </div>
+                            <div class="col-md-3 mb-3 mb-md-0">
+                                <input id="start_date" type="date" name="start_date" class="form-control" style="height: 48px; border-radius: 12px;"
+                                       value="{{ $filters['start_date'] ?? '' }}">
+                            </div>
+                            <div class="col-md-3">
+                                <div class="btn-group w-100">
+                                    <button type="submit" class="sispi-btn sispi-btn-primary flex-fill" style="padding: 10px;">
+                                        Cari
+                                    </button>
+                                    <a href="{{ route('welcome.berita-acara') }}" class="btn btn-outline-secondary d-flex align-items-center justify-content-center px-3" style="border-radius: 12px;">
+                                        Reset
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
 
+                <!-- 3-Column Desktop Grid -->
                 <div class="row">
                     @forelse ($minutes as $minute)
                         <div class="col-md-6 col-lg-4 mb-4">
@@ -116,16 +142,19 @@
                         </div>
                     @empty
                         <div class="col-12">
-                            <div class="alert alert-info" role="alert">
+                            <div class="alert alert-info text-center p-5 rounded-lg" role="alert">
+                                <i class="fas fa-folder-open text-3xl mb-2 d-block"></i>
                                 Tidak menemukan berita acara sesuai filter yang dipilih.
                             </div>
                         </div>
                     @endforelse
                 </div>
 
-                <div class="d-flex justify-content-center">
-                    {{ $minutes->appends($filters ?? [])->links() }}
-                </div>
+                @if ($minutes->hasPages())
+                    <div class="d-flex justify-content-center mt-4">
+                        {{ $minutes->appends($filters ?? [])->links() }}
+                    </div>
+                @endif
             </div>
         </main>
     </div>

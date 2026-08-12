@@ -11,49 +11,55 @@
 
     <div class="main-content">
         <section class="section">
-            {{-- ========== HEADER SECTION ========== --}}
-            <div class="section-header mb-4">
-                <div class="d-flex align-items-center justify-content-between w-100">
-                    <div class="d-flex align-items-center">
-                        <a href="{{ url('/manajemen-risiko') }}" class="btn btn-light btn-sm mr-3 shadow-sm">
-                            <i class="fas fa-arrow-left"></i>
-                        </a>
-                        <div>
-                            <h1 class="mb-1" style="font-size: 1.75rem; font-weight: 700; color: #2c3e50;">
-                                @if ($isAuditor)
-                                    Pemeriksaan Risiko
-                                @elseif ($isAuditee)
-                                    Pemantauan Risiko
-                                @else
-                                    Manajemen Risiko
-                                @endif
-                            </h1>
-                            @if ($isAuditor)
-                                <small class="text-muted d-block" style="font-size: 0.875rem;">
-                                    <i class="fas fa-user-tie mr-1"></i> Auditor: <strong>{{ $user->name }}</strong>
-                                    <span class="badge badge-info ml-2">{{ $user->Level->name ?? 'N/A' }}</span>
-                                </small>
-                            @elseif ($isAuditee)
-                                <small class="text-muted d-block" style="font-size: 0.875rem;">
-                                    <i class="fas fa-building mr-1"></i> Unit Kerja:
-                                    <strong>{{ $user->unitKerja->nama_unit_kerja ?? 'N/A' }}</strong>
-                                </small>
+
+            {{-- ─── Page Header ─── --}}
+            <div class="spi-page-header">
+                <div class="spi-page-header-left">
+                    <div class="spi-page-breadcrumb">
+                        <i class="fas fa-home" style="font-size:0.7rem;"></i>
+                        <span class="spi-page-breadcrumb-sep"><i class="fas fa-chevron-right"></i></span>
+                        <a href="{{ url('/dashboard') }}">Dashboard</a>
+                        <span class="spi-page-breadcrumb-sep"><i class="fas fa-chevron-right"></i></span>
+                        <span class="spi-page-breadcrumb-current">
+                            @if ($isAuditor) Pemeriksaan Risiko
+                            @elseif ($isAuditee) Pemantauan Risiko
+                            @else Manajemen Risiko
                             @endif
-                        </div>
+                        </span>
                     </div>
-
-                    {{-- Notifikasi Badge --}}
+                    <h1 class="spi-page-title">
+                        @if ($isAuditor) Pemeriksaan Risiko
+                        @elseif ($isAuditee) Pemantauan Risiko
+                        @else Manajemen Risiko
+                        @endif
+                    </h1>
+                    <p class="spi-page-subtitle">
+                        @if ($isAuditor)
+                            <i class="fas fa-user-tie" style="margin-right:4px; color:#94A3B8;"></i>
+                            Auditor: <strong>{{ $user->name }}</strong>
+                            <span class="spi-badge spi-badge-primary" style="margin-left:6px;">{{ $user->Level->name ?? 'N/A' }}</span>
+                        @elseif ($isAuditee)
+                            <i class="fas fa-building" style="margin-right:4px; color:#94A3B8;"></i>
+                            Unit Kerja: <strong>{{ $user->unitKerja->nama_unit_kerja ?? 'N/A' }}</strong>
+                        @else
+                            Kelola dan pantau risiko seluruh unit kerja.
+                        @endif
+                    </p>
+                </div>
+                <div class="spi-page-header-actions">
                     @if ($isAuditor && isset($notificationCount) && $notificationCount > 0)
-                        <div class="badge badge-danger p-3 shadow-sm" style="font-size: 0.95rem;">
-                            <i class="fas fa-bell mr-1"></i> {{ $notificationCount }} Penugasan Baru
-                        </div>
+                        <span class="spi-badge spi-badge-danger" style="padding:8px 14px; font-size:0.82rem;">
+                            <i class="fas fa-bell"></i> {{ $notificationCount }} Penugasan Baru
+                        </span>
                     @endif
-
                     @if ($isAuditee && isset($statistics['rejected']) && $statistics['rejected'] > 0)
-                        <div class="badge badge-warning p-3 shadow-sm" style="font-size: 0.95rem;">
-                            <i class="fas fa-exclamation-triangle mr-1"></i> {{ $statistics['rejected'] }} Perlu Perbaikan
-                        </div>
+                        <span class="spi-badge spi-badge-warning" style="padding:8px 14px; font-size:0.82rem;">
+                            <i class="fas fa-exclamation-triangle"></i> {{ $statistics['rejected'] }} Perlu Perbaikan
+                        </span>
                     @endif
+                    <a href="{{ url('/manajemen-risiko') }}" class="spi-btn spi-btn-ghost">
+                        <i class="fas fa-arrow-left"></i> Kembali
+                    </a>
                 </div>
             </div>
 
@@ -84,13 +90,16 @@
                 @endif
 
                 {{-- ========== FILTER SECTION ========== --}}
-                <div class="card border-0 shadow-sm mb-4">
-                    <div class="card-header bg-primary border-bottom py-3">
-                        <h6 class="mb-0 font-weight-bold text-white">
-                            <i class="fas fa-filter mr-2"></i>Filter Data Risiko
-                        </h6>
+                <div class="spi-card" style="margin-bottom:16px;">
+                    <div class="spi-card-header">
+                        <div>
+                            <div class="spi-card-title">
+                                <i class="fas fa-filter" style="margin-right:6px; color:#173F9E;"></i>
+                                Filter Data Risiko
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body">
+                    <div class="spi-card-body">
                         <form method="GET"
                             action="{{ $isAuditee ? route('manajemen-risiko.auditee.index') : ($isAuditor ? route('manajemen-risiko.auditor.index') : route('manajemen-risiko.index')) }}"
                             id="filterForm">
@@ -283,17 +292,18 @@
                 </div>
 
                 {{-- ========== DATA TABLE ========== --}}
-                <div class="card border-0 shadow-sm">
-                    <div class="card-header bg-primary text-white py-3">
-                        <h6 class="mb-0 font-weight-bold">
-                            <i class="fas fa-list-alt mr-2"></i>Daftar Risiko
-                            <span class="badge badge-light text-primary ml-2">{{ $petas->total() }} Data</span>
-                        </h6>
+                <div class="spi-card">
+                    <div class="spi-card-header">
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <i class="fas fa-list-alt" style="color:#173F9E;"></i>
+                            <div class="spi-card-title">Daftar Risiko</div>
+                            <span class="spi-badge spi-badge-primary">{{ $petas->total() }} Data</span>
+                        </div>
                     </div>
-                    <div class="card-body p-0">
-                        <div class="table-responsive">
-                            <table class="table table-hover mb-0">
-                                <thead class="bg-light">
+                    <div class="spi-card-body" style="padding:0;">
+                        <div class="spi-table-container">
+                            <table class="spi-table">
+                                <thead>
                                     <tr>
                                         <th scope="col" width="50" class="text-center border-0">No</th>
                                         <th scope="col" width="12%" class="border-0">Unit Kerja</th>

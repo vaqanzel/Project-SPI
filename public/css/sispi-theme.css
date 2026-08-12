@@ -1,0 +1,192 @@
+/* ==========================================================================
+   SISPI Design System - Politeknik Negeri Malang
+   Design Direction: Modern Institutional Digital Audit Platform
+   Color Palette:
+   - Deep Royal Blue: #173F9E
+   - Dark Navy: #0B1736
+   - Blue: #2856C7
+   - Light Blue: #EAF0FF
+   - Gold / Orange: #F4A623
+   - White: #FFFFFF
+   - Light Background: #F7F9FC
+   - Dark Text: #111827
+   - Secondary Text: #64748B
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+  --sispi-primary: #173F9E;
+  --sispi-primary-hover: #123382;
+  --sispi-secondary: #0B1736;
+  --sispi-blue: #2856C7;
+  --sispi-light-blue: #EAF0FF;
+  --sispi-accent: #F4A623;
+  --sispi-accent-hover: #D88E16;
+  --sispi-bg: #F7F9FC;
+  --sispi-white: #FFFFFF;
+  --sispi-text: #111827;
+  --sispi-text-sub: #64748B;
+  --sispi-border: #E2E8F0;
+  --sispi-border-blue: rgba(23, 63, 158, 0.3);
+
+  --sispi-shadow-subtle: 0 4px 20px rgba(11, 23, 54, 0.05);
+  --sispi-shadow-hover: 0 16px 36px rgba(23, 63, 158, 0.12);
+  --sispi-shadow-glow: 0 10px 30px rgba(23, 63, 158, 0.2);
+
+  --sispi-radius-card: 18px;
+  --sispi-radius-btn: 12px;
+  --sispi-radius-pill: 9999px;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--sispi-text);
+  background-color: var(--sispi-bg);
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+/* Typography Hierarchy */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+  color: var(--sispi-text);
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  font-size: 3.5rem; /* 56-64px desktop */
+  line-height: 1.15;
+}
+
+h2 {
+  font-size: 2.75rem; /* 40-48px desktop */
+  line-height: 1.2;
+}
+
+h3 {
+  font-size: 1.35rem;
+}
+
+@media (max-width: 992px) {
+  h1 { font-size: 2.5rem; }
+  h2 { font-size: 2.1rem; }
+}
+
+@media (max-width: 576px) {
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.75rem; }
+}
+
+/* Base Card Style */
+.sispi-card {
+  background: var(--sispi-white);
+  border: 1px solid var(--sispi-border);
+  border-radius: var(--sispi-radius-card);
+  box-shadow: var(--sispi-shadow-subtle);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sispi-card:hover {
+  border-color: var(--sispi-border-blue);
+  box-shadow: var(--sispi-shadow-hover);
+  transform: translateY(-4px);
+}
+
+/* Buttons */
+.sispi-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 28px;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: var(--sispi-radius-btn);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid transparent;
+  cursor: pointer;
+  text-decoration: none !important;
+}
+
+.sispi-btn:hover {
+  transform: scale(1.02);
+}
+
+.sispi-btn:active {
+  transform: scale(0.98);
+}
+
+.sispi-btn-primary {
+  background: var(--sispi-primary);
+  color: var(--sispi-white) !important;
+  box-shadow: var(--sispi-shadow-glow);
+}
+
+.sispi-btn-primary:hover {
+  background: var(--sispi-primary-hover);
+  color: var(--sispi-white) !important;
+}
+
+.sispi-btn-outline {
+  background: transparent;
+  color: var(--sispi-primary) !important;
+  border-color: var(--sispi-primary);
+}
+
+.sispi-btn-outline:hover {
+  background: var(--sispi-primary);
+  color: var(--sispi-white) !important;
+}
+
+.sispi-btn-accent {
+  background: var(--sispi-accent);
+  color: var(--sispi-secondary) !important;
+  font-weight: 700;
+  box-shadow: 0 8px 20px rgba(244, 166, 35, 0.3);
+}
+
+.sispi-btn-accent:hover {
+  background: var(--sispi-accent-hover);
+}
+
+/* Section Header Badge */
+.sispi-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: var(--sispi-radius-pill);
+  font-size: 0.825rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.sispi-badge-blue {
+  background: rgba(23, 63, 158, 0.08);
+  color: var(--sispi-primary);
+  border: 1px solid rgba(23, 63, 158, 0.15);
+}
+
+.sispi-badge-gold {
+  background: rgba(244, 166, 35, 0.12);
+  color: #D88E16;
+  border: 1px solid rgba(244, 166, 35, 0.25);
+}
+
+/* Global Container */
+.sispi-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+@media (max-width: 768px) {
+  .sispi-container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}

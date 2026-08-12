@@ -1,0 +1,1465 @@
+/* ==========================================================================
+   SPI POLINEMA — Enterprise Modern Internal Audit Platform
+   spi-dashboard.css — Dashboard, Sidebar, Topbar, and Component Styles
+   Design System Version 2.0
+   ========================================================================== */
+
+/* ─────────────────────────────────────────────
+   0. CSS Variables & Design Tokens
+───────────────────────────────────────────── */
+:root {
+  /* Brand Colors */
+  --spi-primary: #173F9E;
+  --spi-primary-dark: #0f2d74;
+  --spi-primary-light: #EAF0FF;
+  --spi-secondary: #0B1736;
+  --spi-accent: #F4A623;
+  --spi-accent-dark: #D88E16;
+
+  /* Semantic Colors */
+  --spi-success: #10B981;
+  --spi-success-light: #D1FAE5;
+  --spi-warning: #F59E0B;
+  --spi-warning-light: #FEF3C7;
+  --spi-danger: #EF4444;
+  --spi-danger-light: #FEE2E2;
+  --spi-info: #3B82F6;
+  --spi-info-light: #DBEAFE;
+
+  /* Neutral Colors */
+  --spi-white: #FFFFFF;
+  --spi-gray-50: #F8FAFC;
+  --spi-gray-100: #F1F5F9;
+  --spi-gray-200: #E2E8F0;
+  --spi-gray-300: #CBD5E1;
+  --spi-gray-400: #94A3B8;
+  --spi-gray-500: #64748B;
+  --spi-gray-600: #475569;
+  --spi-gray-700: #334155;
+  --spi-gray-800: #1E293B;
+  --spi-gray-900: #0F172A;
+
+  /* Background */
+  --spi-bg-main: #F0F4F8;
+  --spi-bg-sidebar: #FFFFFF;
+  --spi-bg-topbar: #FFFFFF;
+
+  /* Borders & Shadows */
+  --spi-border: #E2E8F0;
+  --spi-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --spi-shadow-sm: 0 2px 8px rgba(15, 23, 53, 0.08);
+  --spi-shadow-md: 0 4px 16px rgba(15, 23, 53, 0.10);
+  --spi-shadow-lg: 0 8px 30px rgba(23, 63, 158, 0.12);
+  --spi-shadow-xl: 0 20px 60px rgba(23, 63, 158, 0.15);
+
+  /* Layout Dimensions */
+  --spi-sidebar-width: 265px;
+  --spi-sidebar-mini-width: 60px;
+  --spi-topbar-height: 70px;
+
+  /* Radius */
+  --spi-radius-sm: 8px;
+  --spi-radius: 12px;
+  --spi-radius-md: 16px;
+  --spi-radius-lg: 20px;
+  --spi-radius-xl: 24px;
+  --spi-radius-full: 9999px;
+
+  /* Typography */
+  --spi-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --spi-font-size-xs: 0.75rem;
+  --spi-font-size-sm: 0.8125rem;
+  --spi-font-size-base: 0.9375rem;
+  --spi-font-size-md: 1rem;
+  --spi-font-size-lg: 1.125rem;
+  --spi-font-size-xl: 1.25rem;
+  --spi-font-size-2xl: 1.5rem;
+  --spi-font-size-3xl: 1.875rem;
+
+  /* Transitions */
+  --spi-transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  --spi-transition-fast: all 0.14s cubic-bezier(0.4, 0, 0.2, 1);
+  --spi-transition-slow: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ─────────────────────────────────────────────
+   1. Base Reset & Body
+───────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--spi-font);
+  font-size: var(--spi-font-size-base);
+  color: var(--spi-gray-800);
+  background-color: var(--spi-bg-main);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--spi-font);
+  font-weight: 700;
+  color: var(--spi-gray-900);
+  letter-spacing: -0.01em;
+}
+
+a {
+  color: var(--spi-primary);
+  text-decoration: none;
+  transition: var(--spi-transition-fast);
+}
+
+a:hover {
+  color: var(--spi-primary-dark);
+  text-decoration: none;
+}
+
+/* ─────────────────────────────────────────────
+   2. Sidebar Modern
+───────────────────────────────────────────── */
+.spi-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: var(--spi-sidebar-width);
+  background: var(--spi-bg-sidebar);
+  border-right: 1px solid var(--spi-border);
+  box-shadow: var(--spi-shadow-sm);
+  z-index: 1000;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: var(--spi-transition-slow);
+  display: flex;
+  flex-direction: column;
+  scrollbar-width: thin;
+  scrollbar-color: var(--spi-gray-200) transparent;
+}
+
+.spi-sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.spi-sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.spi-sidebar::-webkit-scrollbar-thumb {
+  background: var(--spi-gray-200);
+  border-radius: var(--spi-radius-full);
+}
+
+/* Sidebar Logo */
+.spi-sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 22px;
+  min-height: var(--spi-topbar-height);
+  border-bottom: 1px solid var(--spi-border);
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.spi-sidebar-brand-icon {
+  width: 38px;
+  height: 38px;
+  background: linear-gradient(135deg, var(--spi-primary), var(--spi-primary-dark));
+  border-radius: var(--spi-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(23, 63, 158, 0.25);
+}
+
+.spi-sidebar-brand-icon i {
+  color: #fff;
+  font-size: 1.1rem;
+}
+
+.spi-sidebar-brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.spi-sidebar-brand-name {
+  font-size: var(--spi-font-size-md);
+  font-weight: 800;
+  color: var(--spi-gray-900);
+  letter-spacing: -0.02em;
+}
+
+.spi-sidebar-brand-sub {
+  font-size: var(--spi-font-size-xs);
+  color: var(--spi-gray-500);
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+/* Sidebar Navigation Container */
+.spi-sidebar-nav {
+  flex: 1;
+  padding: 16px 12px;
+  list-style: none;
+  margin: 0;
+}
+
+/* Section Group Labels */
+.spi-nav-section-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--spi-gray-400);
+  padding: 8px 10px 4px;
+  margin-top: 10px;
+}
+
+.spi-nav-section-label:first-child {
+  margin-top: 0;
+}
+
+/* Nav Item */
+.spi-nav-item {
+  list-style: none;
+  margin: 1px 0;
+}
+
+.spi-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 10px 12px;
+  border-radius: var(--spi-radius);
+  color: var(--spi-gray-600);
+  font-size: var(--spi-font-size-sm);
+  font-weight: 500;
+  transition: var(--spi-transition-fast);
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.spi-nav-link:hover {
+  background: var(--spi-primary-light);
+  color: var(--spi-primary);
+  text-decoration: none;
+}
+
+.spi-nav-link:hover .spi-nav-icon {
+  color: var(--spi-primary);
+}
+
+.spi-nav-link.active {
+  background: var(--spi-primary-light);
+  color: var(--spi-primary);
+  font-weight: 600;
+}
+
+.spi-nav-link.active .spi-nav-icon {
+  color: var(--spi-primary);
+}
+
+.spi-nav-icon {
+  width: 20px;
+  text-align: center;
+  color: var(--spi-gray-400);
+  font-size: 0.9rem;
+  flex-shrink: 0;
+  transition: var(--spi-transition-fast);
+}
+
+.spi-nav-text {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.spi-nav-chevron {
+  font-size: 0.7rem;
+  color: var(--spi-gray-400);
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+/* Dropdown Nav */
+.spi-nav-item.open>.spi-nav-link .spi-nav-chevron {
+  transform: rotate(-90deg);
+}
+
+.spi-nav-item.open>.spi-nav-link {
+  color: var(--spi-primary);
+}
+
+.spi-dropdown-menu {
+  list-style: none;
+  margin: 0;
+  padding: 4px 0 4px 20px;
+  display: none;
+}
+
+.spi-nav-item.open>.spi-dropdown-menu {
+  display: block;
+}
+
+.spi-dropdown-menu .spi-nav-link {
+  font-size: 0.8rem;
+  padding: 8px 12px;
+  color: var(--spi-gray-500);
+}
+
+.spi-dropdown-menu .spi-nav-link.active,
+.spi-dropdown-menu .spi-nav-link:hover {
+  color: var(--spi-primary);
+  background: var(--spi-primary-light);
+}
+
+/* Sidebar Divider */
+.spi-nav-divider {
+  height: 1px;
+  background: var(--spi-border);
+  margin: 10px 0;
+}
+
+/* Sidebar Footer */
+.spi-sidebar-footer {
+  padding: 12px;
+  border-top: 1px solid var(--spi-border);
+  flex-shrink: 0;
+}
+
+.spi-sidebar-footer .spi-nav-link {
+  color: var(--spi-danger);
+}
+
+.spi-sidebar-footer .spi-nav-link:hover {
+  background: var(--spi-danger-light);
+  color: var(--spi-danger);
+}
+
+.spi-sidebar-footer .spi-nav-link:hover .spi-nav-icon {
+  color: var(--spi-danger);
+}
+
+/* ─────────────────────────────────────────────
+   3. Topbar / Header
+───────────────────────────────────────────── */
+.spi-topbar {
+  position: fixed;
+  top: 0;
+  left: var(--spi-sidebar-width);
+  right: 0;
+  height: var(--spi-topbar-height);
+  background: var(--spi-bg-topbar);
+  border-bottom: 1px solid var(--spi-border);
+  box-shadow: var(--spi-shadow-xs);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  transition: var(--spi-transition-slow);
+}
+
+.spi-topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.spi-topbar-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--spi-radius);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--spi-gray-500);
+  transition: var(--spi-transition-fast);
+  font-size: 1.1rem;
+}
+
+.spi-topbar-toggle:hover {
+  background: var(--spi-gray-100);
+  color: var(--spi-primary);
+}
+
+.spi-topbar-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--spi-font-size-sm);
+  color: var(--spi-gray-500);
+}
+
+.spi-topbar-breadcrumb a {
+  color: var(--spi-gray-500);
+  transition: var(--spi-transition-fast);
+}
+
+.spi-topbar-breadcrumb a:hover {
+  color: var(--spi-primary);
+}
+
+.spi-topbar-breadcrumb-sep {
+  font-size: 0.6rem;
+  color: var(--spi-gray-300);
+}
+
+.spi-topbar-breadcrumb-current {
+  color: var(--spi-gray-800);
+  font-weight: 600;
+}
+
+.spi-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* User Avatar Dropdown */
+.spi-user-dropdown {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 10px;
+  border-radius: var(--spi-radius);
+  cursor: pointer;
+  transition: var(--spi-transition-fast);
+  border: none;
+  background: transparent;
+  text-decoration: none;
+}
+
+.spi-user-dropdown:hover {
+  background: var(--spi-gray-100);
+}
+
+.spi-user-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--spi-radius-full);
+  object-fit: cover;
+  border: 2px solid var(--spi-border);
+  flex-shrink: 0;
+}
+
+.spi-user-avatar-initials {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--spi-radius-full);
+  background: linear-gradient(135deg, var(--spi-primary), var(--spi-primary-dark));
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.spi-user-info {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.spi-user-name {
+  font-size: var(--spi-font-size-sm);
+  font-weight: 600;
+  color: var(--spi-gray-900);
+}
+
+.spi-user-role {
+  font-size: var(--spi-font-size-xs);
+  color: var(--spi-gray-500);
+}
+
+.spi-user-chevron {
+  font-size: 0.65rem;
+  color: var(--spi-gray-400);
+  margin-left: 2px;
+}
+
+/* Topbar Dropdown Menu */
+.spi-topbar-dropdown {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.spi-dropdown-topbar {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: var(--spi-white);
+  border: 1px solid var(--spi-border);
+  border-radius: var(--spi-radius-md);
+  box-shadow: var(--spi-shadow-lg);
+  min-width: 200px;
+  z-index: 1050;
+  overflow: hidden;
+  display: none;
+  animation: spiDropIn 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.spi-dropdown-topbar.show {
+  display: block;
+}
+
+@keyframes spiDropIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.spi-dropdown-topbar-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  color: var(--spi-gray-600);
+  font-size: var(--spi-font-size-sm);
+  font-weight: 500;
+  transition: var(--spi-transition-fast);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.spi-dropdown-topbar-item:hover {
+  background: var(--spi-gray-50);
+  color: var(--spi-primary);
+  text-decoration: none;
+}
+
+.spi-dropdown-topbar-item i {
+  width: 16px;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.spi-dropdown-topbar-divider {
+  height: 1px;
+  background: var(--spi-border);
+  margin: 4px 0;
+}
+
+.spi-dropdown-topbar-item.danger {
+  color: var(--spi-danger);
+}
+
+.spi-dropdown-topbar-item.danger:hover {
+  background: var(--spi-danger-light);
+  color: var(--spi-danger);
+}
+
+/* ─────────────────────────────────────────────
+   4. Main Content Layout
+───────────────────────────────────────────── */
+.spi-main-wrapper {
+  display: flex;
+  min-height: 100vh;
+}
+
+.spi-content {
+  margin-left: var(--spi-sidebar-width);
+  margin-top: var(--spi-topbar-height);
+  padding: 28px 28px;
+  flex: 1;
+  min-width: 0;
+  transition: var(--spi-transition-slow);
+}
+
+/* ─────────────────────────────────────────────
+   5. Page Header
+───────────────────────────────────────────── */
+.spi-page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.spi-page-header-left {}
+
+.spi-page-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+  font-size: var(--spi-font-size-xs);
+  color: var(--spi-gray-500);
+}
+
+.spi-page-breadcrumb a {
+  color: var(--spi-gray-500);
+}
+
+.spi-page-breadcrumb a:hover {
+  color: var(--spi-primary);
+}
+
+.spi-page-breadcrumb-sep {
+  font-size: 0.6rem;
+  color: var(--spi-gray-300);
+}
+
+.spi-page-title {
+  font-size: var(--spi-font-size-2xl);
+  font-weight: 800;
+  color: var(--spi-gray-900);
+  margin: 0;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+.spi-page-subtitle {
+  font-size: var(--spi-font-size-sm);
+  color: var(--spi-gray-500);
+  margin: 4px 0 0;
+}
+
+.spi-page-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+/* ─────────────────────────────────────────────
+   6. Stat Summary Cards
+───────────────────────────────────────────── */
+.spi-stats-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.spi-stat-card {
+  background: var(--spi-white);
+  border: 1px solid var(--spi-border);
+  border-radius: var(--spi-radius-md);
+  padding: 22px 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  box-shadow: var(--spi-shadow-xs);
+  transition: var(--spi-transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.spi-stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--spi-primary);
+  opacity: 0;
+  transition: var(--spi-transition-fast);
+}
+
+.spi-stat-card:hover {
+  box-shadow: var(--spi-shadow-md);
+  transform: translateY(-2px);
+  border-color: rgba(23, 63, 158, 0.2);
+}
+
+.spi-stat-card:hover::before {
+  opacity: 1;
+}
+
+.spi-stat-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--spi-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 1.2rem;
+}
+
+.spi-stat-icon-blue {
+  background: var(--spi-primary-light);
+  color: var(--spi-primary);
+}
+
+.spi-stat-icon-green {
+  background: var(--spi-success-light);
+  color: var(--spi-success);
+}
+
+.spi-stat-icon-amber {
+  background: var(--spi-warning-light);
+  color: var(--spi-warning);
+}
+
+.spi-stat-icon-red {
+  background: var(--spi-danger-light);
+  color: var(--spi-danger);
+}
+
+.spi-stat-icon-purple {
+  background: #F3E8FF;
+  color: #7C3AED;
+}
+
+.spi-stat-body {}
+
+.spi-stat-label {
+  font-size: var(--spi-font-size-xs);
+  font-weight: 600;
+  color: var(--spi-gray-500);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 4px;
+}
+
+.spi-stat-value {
+  font-size: var(--spi-font-size-3xl);
+  font-weight: 800;
+  color: var(--spi-gray-900);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.spi-stat-meta {
+  font-size: var(--spi-font-size-xs);
+  color: var(--spi-gray-500);
+  margin-top: 4px;
+}
+
+.spi-stat-link {
+  font-size: var(--spi-font-size-xs);
+  color: var(--spi-primary);
+  font-weight: 600;
+  margin-top: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ─────────────────────────────────────────────
+   7. Cards (generic)
+───────────────────────────────────────────── */
+.spi-card {
+  background: var(--spi-white);
+  border: 1px solid var(--spi-border);
+  border-radius: var(--spi-radius-md);
+  box-shadow: var(--spi-shadow-xs);
+  overflow: hidden;
+}
+
+.spi-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--spi-border);
+  gap: 12px;
+}
+
+.spi-card-title {
+  font-size: var(--spi-font-size-md);
+  font-weight: 700;
+  color: var(--spi-gray-900);
+  margin: 0;
+}
+
+.spi-card-subtitle {
+  font-size: var(--spi-font-size-xs);
+  color: var(--spi-gray-500);
+  margin-top: 2px;
+}
+
+.spi-card-body {
+  padding: 24px;
+}
+
+.spi-card-footer {
+  padding: 16px 24px;
+  border-top: 1px solid var(--spi-border);
+  background: var(--spi-gray-50);
+}
+
+/* ─────────────────────────────────────────────
+   8. Progress Bars
+───────────────────────────────────────────── */
+.spi-progress-wrapper {
+  margin-bottom: 16px;
+}
+
+.spi-progress-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.spi-progress-label {
+  font-size: var(--spi-font-size-sm);
+  font-weight: 600;
+  color: var(--spi-gray-700);
+}
+
+.spi-progress-pct {
+  font-size: var(--spi-font-size-sm);
+  font-weight: 700;
+  color: var(--spi-primary);
+}
+
+.spi-progress-track {
+  height: 8px;
+  background: var(--spi-gray-100);
+  border-radius: var(--spi-radius-full);
+  overflow: hidden;
+}
+
+.spi-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--spi-primary), #4C7EF4);
+  border-radius: var(--spi-radius-full);
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.spi-progress-bar-green {
+  background: linear-gradient(90deg, var(--spi-success), #34D399);
+}
+
+.spi-progress-bar-amber {
+  background: linear-gradient(90deg, var(--spi-warning), #FCD34D);
+}
+
+/* ─────────────────────────────────────────────
+   9. Modern Table
+───────────────────────────────────────────── */
+.spi-table-wrapper {
+  overflow-x: auto;
+  border-radius: var(--spi-radius);
+  border: 1px solid var(--spi-border);
+}
+
+.spi-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--spi-font-size-sm);
+}
+
+.spi-table thead th {
+  background: var(--spi-gray-50);
+  color: var(--spi-gray-500);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--spi-border);
+  white-space: nowrap;
+}
+
+.spi-table tbody tr {
+  border-bottom: 1px solid var(--spi-gray-100);
+  transition: background 0.12s ease;
+}
+
+.spi-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.spi-table tbody tr:hover {
+  background: var(--spi-primary-light);
+}
+
+.spi-table tbody td {
+  padding: 13px 16px;
+  vertical-align: middle;
+  color: var(--spi-gray-700);
+}
+
+.spi-table tbody td strong {
+  color: var(--spi-gray-900);
+  font-weight: 600;
+}
+
+/* ─────────────────────────────────────────────
+   10. Buttons
+───────────────────────────────────────────── */
+.spi-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 18px;
+  font-size: var(--spi-font-size-sm);
+  font-weight: 600;
+  border-radius: var(--spi-radius);
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  transition: var(--spi-transition-fast);
+  text-decoration: none;
+  white-space: nowrap;
+  line-height: 1.4;
+}
+
+.spi-btn:hover {
+  transform: translateY(-1px);
+  text-decoration: none;
+}
+
+.spi-btn:active {
+  transform: translateY(0);
+}
+
+.spi-btn-primary {
+  background: var(--spi-primary);
+  color: var(--spi-white) !important;
+  box-shadow: 0 4px 12px rgba(23, 63, 158, 0.3);
+}
+
+.spi-btn-primary:hover {
+  background: var(--spi-primary-dark);
+  color: var(--spi-white) !important;
+  box-shadow: 0 6px 18px rgba(23, 63, 158, 0.4);
+}
+
+.spi-btn-outline {
+  background: transparent;
+  color: var(--spi-primary) !important;
+  border-color: var(--spi-primary);
+}
+
+.spi-btn-outline:hover {
+  background: var(--spi-primary-light);
+}
+
+.spi-btn-success {
+  background: var(--spi-success);
+  color: var(--spi-white) !important;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.spi-btn-success:hover {
+  background: #059669;
+  color: var(--spi-white) !important;
+}
+
+.spi-btn-danger {
+  background: var(--spi-danger);
+  color: var(--spi-white) !important;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+}
+
+.spi-btn-danger:hover {
+  background: #DC2626;
+  color: var(--spi-white) !important;
+}
+
+.spi-btn-warning {
+  background: var(--spi-warning);
+  color: var(--spi-gray-900) !important;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+.spi-btn-warning:hover {
+  background: #D97706;
+}
+
+.spi-btn-ghost {
+  background: transparent;
+  color: var(--spi-gray-600) !important;
+  border-color: var(--spi-gray-200);
+}
+
+.spi-btn-ghost:hover {
+  background: var(--spi-gray-100);
+  color: var(--spi-gray-800) !important;
+}
+
+.spi-btn-sm {
+  padding: 6px 12px;
+  font-size: var(--spi-font-size-xs);
+  border-radius: var(--spi-radius-sm);
+  gap: 5px;
+}
+
+.spi-btn-icon {
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border-radius: var(--spi-radius);
+}
+
+.spi-btn-icon-sm {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border-radius: var(--spi-radius-sm);
+  font-size: 0.75rem;
+}
+
+/* ─────────────────────────────────────────────
+   11. Badges / Status Chips
+───────────────────────────────────────────── */
+.spi-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: var(--spi-radius-full);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.spi-badge-primary {
+  background: var(--spi-primary-light);
+  color: var(--spi-primary);
+}
+
+.spi-badge-success {
+  background: var(--spi-success-light);
+  color: #059669;
+}
+
+.spi-badge-warning {
+  background: var(--spi-warning-light);
+  color: #B45309;
+}
+
+.spi-badge-danger {
+  background: var(--spi-danger-light);
+  color: #DC2626;
+}
+
+.spi-badge-info {
+  background: var(--spi-info-light);
+  color: #1D4ED8;
+}
+
+.spi-badge-gray {
+  background: var(--spi-gray-100);
+  color: var(--spi-gray-600);
+}
+
+.spi-badge-purple {
+  background: #F3E8FF;
+  color: #6D28D9;
+}
+
+/* ─────────────────────────────────────────────
+   12. Form Elements
+───────────────────────────────────────────── */
+.spi-form-label {
+  font-size: var(--spi-font-size-sm);
+  font-weight: 600;
+  color: var(--spi-gray-700);
+  margin-bottom: 6px;
+  display: block;
+}
+
+.spi-form-control,
+.spi-form-select {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: var(--spi-font-size-sm);
+  color: var(--spi-gray-800);
+  background: var(--spi-white);
+  border: 1.5px solid var(--spi-gray-200);
+  border-radius: var(--spi-radius);
+  transition: var(--spi-transition-fast);
+  outline: none;
+  font-family: var(--spi-font);
+  appearance: none;
+}
+
+.spi-form-control:focus,
+.spi-form-select:focus {
+  border-color: var(--spi-primary);
+  box-shadow: 0 0 0 3px rgba(23, 63, 158, 0.12);
+}
+
+.spi-form-control::placeholder {
+  color: var(--spi-gray-400);
+}
+
+.spi-form-group {
+  margin-bottom: 20px;
+}
+
+.spi-input-group {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+}
+
+.spi-input-group .spi-form-control {
+  border-right: none;
+  border-radius: var(--spi-radius) 0 0 var(--spi-radius);
+}
+
+.spi-input-group .spi-btn {
+  border-radius: 0 var(--spi-radius) var(--spi-radius) 0;
+}
+
+/* ─────────────────────────────────────────────
+   13. Alerts
+───────────────────────────────────────────── */
+.spi-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 18px;
+  border-radius: var(--spi-radius);
+  font-size: var(--spi-font-size-sm);
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+}
+
+.spi-alert-icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.spi-alert-body {
+  flex: 1;
+}
+
+.spi-alert-title {
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.spi-alert-close {
+  cursor: pointer;
+  opacity: 0.6;
+  font-size: 1rem;
+  padding: 0;
+  background: none;
+  border: none;
+  flex-shrink: 0;
+}
+
+.spi-alert-success {
+  background: var(--spi-success-light);
+  border-color: #6EE7B7;
+  color: #065F46;
+}
+
+.spi-alert-success .spi-alert-icon {
+  color: var(--spi-success);
+}
+
+.spi-alert-danger {
+  background: var(--spi-danger-light);
+  border-color: #FCA5A5;
+  color: #991B1B;
+}
+
+.spi-alert-danger .spi-alert-icon {
+  color: var(--spi-danger);
+}
+
+.spi-alert-warning {
+  background: var(--spi-warning-light);
+  border-color: #FCD34D;
+  color: #78350F;
+}
+
+.spi-alert-warning .spi-alert-icon {
+  color: var(--spi-warning);
+}
+
+.spi-alert-info {
+  background: var(--spi-info-light);
+  border-color: #93C5FD;
+  color: #1E3A8A;
+}
+
+.spi-alert-info .spi-alert-icon {
+  color: var(--spi-info);
+}
+
+/* ─────────────────────────────────────────────
+   14. Filter / Search Bar
+───────────────────────────────────────────── */
+.spi-filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.spi-search-input {
+  display: flex;
+  align-items: center;
+  background: var(--spi-white);
+  border: 1.5px solid var(--spi-gray-200);
+  border-radius: var(--spi-radius);
+  padding: 0 12px;
+  gap: 8px;
+  min-width: 260px;
+  transition: var(--spi-transition-fast);
+}
+
+.spi-search-input:focus-within {
+  border-color: var(--spi-primary);
+  box-shadow: 0 0 0 3px rgba(23, 63, 158, 0.1);
+}
+
+.spi-search-input i {
+  color: var(--spi-gray-400);
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.spi-search-input input {
+  border: none;
+  outline: none;
+  flex: 1;
+  padding: 9px 0;
+  font-size: var(--spi-font-size-sm);
+  font-family: var(--spi-font);
+  color: var(--spi-gray-800);
+  background: transparent;
+}
+
+.spi-search-input input::placeholder {
+  color: var(--spi-gray-400);
+}
+
+/* ─────────────────────────────────────────────
+   15. Pagination
+───────────────────────────────────────────── */
+.spi-pagination {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding-top: 16px;
+  border-top: 1px solid var(--spi-gray-100);
+  margin-top: 4px;
+}
+
+.pagination {
+  display: flex;
+  gap: 4px;
+  margin: 0;
+  padding: 16px 0 0;
+  list-style: none;
+  border-top: 1px solid var(--spi-gray-100);
+}
+
+.page-item .page-link {
+  padding: 6px 12px;
+  border: 1.5px solid var(--spi-gray-200);
+  border-radius: var(--spi-radius);
+  color: var(--spi-gray-600);
+  font-size: var(--spi-font-size-sm);
+  font-weight: 500;
+  transition: var(--spi-transition-fast);
+  background: var(--spi-white);
+}
+
+.page-item .page-link:hover {
+  background: var(--spi-primary-light);
+  border-color: var(--spi-primary);
+  color: var(--spi-primary);
+}
+
+.page-item.active .page-link {
+  background: var(--spi-primary);
+  border-color: var(--spi-primary);
+  color: var(--spi-white);
+  box-shadow: 0 4px 10px rgba(23, 63, 158, 0.3);
+}
+
+.page-item.disabled .page-link {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ─────────────────────────────────────────────
+   16. Modal Modern
+───────────────────────────────────────────── */
+.modal-content {
+  border: none;
+  border-radius: var(--spi-radius-lg);
+  box-shadow: var(--spi-shadow-xl);
+  overflow: hidden;
+}
+
+.modal-header {
+  background: var(--spi-white);
+  border-bottom: 1px solid var(--spi-border);
+  padding: 20px 24px;
+}
+
+.modal-title {
+  font-size: var(--spi-font-size-md);
+  font-weight: 700;
+  color: var(--spi-gray-900);
+}
+
+.modal-body {
+  padding: 24px;
+}
+
+.modal-footer {
+  border-top: 1px solid var(--spi-border);
+  padding: 16px 24px;
+  background: var(--spi-gray-50);
+}
+
+/* ─────────────────────────────────────────────
+   17. Empty State
+───────────────────────────────────────────── */
+.spi-empty-state {
+  text-align: center;
+  padding: 60px 24px;
+  color: var(--spi-gray-500);
+}
+
+.spi-empty-state-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: var(--spi-radius-xl);
+  background: var(--spi-gray-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  font-size: 1.75rem;
+  color: var(--spi-gray-400);
+}
+
+.spi-empty-state-title {
+  font-size: var(--spi-font-size-lg);
+  font-weight: 700;
+  color: var(--spi-gray-700);
+  margin-bottom: 6px;
+}
+
+.spi-empty-state-text {
+  font-size: var(--spi-font-size-sm);
+  color: var(--spi-gray-500);
+}
+
+/* ─────────────────────────────────────────────
+   18. Overrides for Stisla Template Compatibility
+───────────────────────────────────────────── */
+/* Override the main-wrapper/main-content so they work with new layout */
+.main-wrapper {
+  min-height: 100vh;
+}
+
+/* Keep the original stisla structure but inject new design onto it */
+.main-sidebar {
+  width: var(--spi-sidebar-width);
+  background: var(--spi-bg-sidebar) !important;
+  border-right: 1px solid var(--spi-border);
+  box-shadow: var(--spi-shadow-sm);
+}
+
+.main-sidebar .sidebar-brand {
+  background: var(--spi-white) !important;
+  border-bottom: 1px solid var(--spi-border);
+  padding: 0 22px;
+  height: var(--spi-topbar-height);
+  display: flex;
+  align-items: center;
+}
+
+.main-sidebar .sidebar-brand a {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--spi-gray-900) !important;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+
+/* ─────────────────────────────────────────────
+   19. Responsive
+───────────────────────────────────────────── */
+@media (max-width: 992px) {
+  .spi-sidebar {
+    transform: translateX(-100%);
+    z-index: 1050;
+  }
+
+  .spi-sidebar.show {
+    transform: translateX(0);
+  }
+
+  .spi-topbar {
+    left: 0;
+  }
+
+  .spi-content {
+    margin-left: 0;
+  }
+
+  .spi-topbar-toggle {
+    display: flex;
+  }
+}
+
+@media (max-width: 576px) {
+  .spi-content {
+    padding: 16px;
+  }
+
+  .spi-stats-row {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .spi-page-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .spi-user-info {
+    display: none;
+  }
+}
+
+/* ─────────────────────────────────────────────
+   20. GSAP Entrance Animation Targets
+───────────────────────────────────────────── */
+.spi-animate-entrance {
+  /* initial state will be set by GSAP */
+}
+
+.spi-stagger-item {
+  /* stagger animation target */
+}
