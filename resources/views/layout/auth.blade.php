@@ -16,7 +16,18 @@
 
     @stack('style')
 
+    @php
+        $authSettings     = \App\Models\LandingPageSetting::getSettings();
+        $authPrimaryColor = $authSettings['theme_primary_color'] ?? '#173F9E';
+        $authDarkColor    = $authSettings['theme_dark_bg'] ?? '#0B1736';
+    @endphp
+
     <style>
+        :root {
+            --auth-primary: {{ $authPrimaryColor }};
+            --auth-dark: {{ $authDarkColor }};
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             background: #F7F9FC;
@@ -37,7 +48,7 @@
         /* KIRI & KANAN 50% Desktop Split */
         .auth-panel-visual {
             flex: 1;
-            background: linear-gradient(135deg, #173F9E 0%, #0B1736 100%);
+            background: linear-gradient(135deg, var(--auth-primary) 0%, var(--auth-dark) 100%);
             color: #FFFFFF;
             display: flex;
             flex-direction: column;
@@ -161,13 +172,13 @@
         .shield-custom-shape {
             width: 110px;
             height: 132px;
-            background: linear-gradient(180deg, #2563EB 0%, #1D4ED8 50%, #1E3A8A 100%);
+            background: linear-gradient(180deg, var(--auth-primary) 0%, var(--auth-dark) 100%);
             clip-path: polygon(50% 0%, 100% 18%, 100% 72%, 50% 100%, 0% 72%, 0% 18%);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 16px 40px rgba(29, 78, 216, 0.5);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
             border: 2px solid rgba(255, 255, 255, 0.35);
         }
 
@@ -279,7 +290,7 @@
         }
 
         .auth-back-btn:hover {
-            color: #173F9E;
+            color: var(--auth-primary);
         }
 
         @media (max-width: 992px) {

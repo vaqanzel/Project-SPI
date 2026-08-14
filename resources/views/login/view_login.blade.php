@@ -2,8 +2,16 @@
 
 @section('title', 'Login')
 
+@php
+    $loginThemePrimary = \App\Models\LandingPageSetting::getSettings()['theme_primary_color'] ?? '#173F9E';
+@endphp
+
 @push('style')
     <style>
+        :root {
+            --auth-primary: {{ $loginThemePrimary }};
+        }
+
         .auth-form-header {
             margin-bottom: 28px;
         }
@@ -62,7 +70,7 @@
 
         .input-wrapper .form-control:focus {
             background-color: #FFFFFF;
-            border-color: #173F9E;
+            border-color: var(--auth-primary);
             box-shadow: 0 0 0 4px rgba(23, 63, 158, 0.1);
             outline: none;
         }
@@ -82,13 +90,13 @@
         }
 
         .toggle-password-btn:hover {
-            color: #173F9E;
+            color: var(--auth-primary);
         }
 
         .btn-login-action {
             height: 52px;
             width: 100%;
-            background: #173F9E;
+            background: var(--auth-primary) !important;
             border: none;
             border-radius: 12px;
             color: #FFFFFF;
@@ -104,7 +112,8 @@
         }
 
         .btn-login-action:hover {
-            background: #123382;
+            background: var(--auth-primary) !important;
+            filter: brightness(0.9);
             transform: scale(1.01);
             box-shadow: 0 12px 28px rgba(23, 63, 158, 0.35);
         }
@@ -155,7 +164,7 @@
         <div class="input-group-custom mb-3">
             <div class="d-flex justify-content-between align-items-center mb-1">
                 <label for="password" class="mb-0">Password</label>
-                <a href="javascript:void(0);" onclick="alert('Silakan hubungi Administrator SPI Polinema untuk reset password.');" style="color: #173F9E; font-weight: 600; font-size: 0.85rem; text-decoration: none;">
+                <a href="javascript:void(0);" onclick="alert('Silakan hubungi Administrator SPI Polinema untuk reset password.');" style="color: var(--auth-primary); font-weight: 600; font-size: 0.85rem; text-decoration: none;">
                     Forgot Password?
                 </a>
             </div>
@@ -178,7 +187,7 @@
 
         <div class="text-center pt-3 border-top">
             <span style="color: #64748B; font-size: 0.9rem;">Belum memiliki akun?</span>
-            <a href="{{ route('register') }}" style="color: #173F9E; font-weight: 700; font-size: 0.9rem; text-decoration: none; margin-left: 4px;">
+            <a href="{{ route('register') }}" style="color: var(--auth-primary); font-weight: 700; font-size: 0.9rem; text-decoration: none; margin-left: 4px;">
                 Daftar
             </a>
         </div>

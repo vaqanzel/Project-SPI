@@ -37,14 +37,14 @@
         <div class="mt-auto pt-3 d-flex align-items-center justify-content-between">
             <div>
                 @if ($minuteDocuments->isNotEmpty())
-                    <a href="{{ $minuteDocuments->first()->download_url }}" target="_blank" rel="noopener" class="d-inline-flex align-items-center gap-2 px-3 py-2 text-decoration-none" style="background: #F8FAFC; border: 1px solid #E2E8F0; color: #173F9E; font-size: 0.8rem; font-weight: 700; border-radius: 10px; transition: all 0.2s ease;">
+                    <a href="{{ $minuteDocuments->first()->download_url }}" target="_blank" rel="noopener" class="d-inline-flex align-items-center gap-2 px-3 py-2 text-decoration-none" style="background: #F8FAFC; border: 1px solid #E2E8F0; color: var(--theme-primary, #173F9E); font-size: 0.8rem; font-weight: 700; border-radius: 10px; transition: all 0.2s ease;">
                         <i class="fas fa-paperclip" style="color: #94A3B8;"></i>
                         <span>Dokumen PDF</span>
                     </a>
                 @endif
             </div>
 
-            <button type="button" class="btn btn-link p-0 text-decoration-none font-weight-bold" data-toggle="modal" data-target="#{{ $modalId }}" style="color: #173F9E; font-size: 0.875rem; font-weight: 700;">
+            <button type="button" class="btn btn-link p-0 text-decoration-none font-weight-bold" data-toggle="modal" data-target="#{{ $modalId }}" style="color: var(--theme-primary, #173F9E); font-size: 0.875rem; font-weight: 700;">
                 <span>Lihat Detail →</span>
             </button>
         </div>
@@ -55,7 +55,7 @@
 <div class="modal fade" id="{{ $modalId }}" tabindex="-1" role="dialog" aria-labelledby="{{ $modalId }}Label" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content" style="border-radius: 24px; overflow: hidden; border: none; box-shadow: 0 24px 60px rgba(0,0,0,0.3);">
-            <div class="modal-header" style="background: linear-gradient(135deg, #0B1736 0%, #173F9E 100%); color: #ffffff; padding: 24px 32px; border: none;">
+            <div class="modal-header" style="background: linear-gradient(135deg, var(--theme-dark, #0B1736) 0%, var(--theme-primary, #173F9E) 100%); color: #ffffff; padding: 24px 32px; border: none;">
                 <div>
                     <span class="badge badge-warning text-dark font-weight-bold uppercase mb-2" style="background: #F4A623; font-size: 0.75rem; padding: 4px 10px; border-radius: 999px;">Berita Acara Kegiatan</span>
                     <h5 class="modal-title h5 font-weight-bold text-white mb-0" id="{{ $modalId }}Label">{{ $minute->title }}</h5>
@@ -67,7 +67,7 @@
             
             <div class="modal-body p-4" style="background: #F7F9FC;">
                 <div class="d-flex flex-wrap gap-3 mb-3 font-weight-600" style="font-size: 0.9rem;">
-                    <span style="color: #173F9E; background: #EAF0FF; padding: 4px 14px; border-radius: 999px; border: 1px solid rgba(23,63,158,0.15);">
+                    <span style="color: var(--theme-primary, #173F9E); background: #EAF0FF; padding: 4px 14px; border-radius: 999px; border: 1px solid rgba(23,63,158,0.15);">
                         <i class="far fa-calendar-alt mr-1"></i> {{ $minute->meeting_date?->format('d F Y') ?? 'Tanggal N/A' }}
                     </span>
                     @if ($minute->location)
@@ -78,7 +78,7 @@
                 </div>
 
                 <div class="p-4 bg-white rounded-20 border mb-4" style="border-radius: 16px;">
-                    <h6 class="font-weight-bold text-dark mb-2" style="font-size: 1rem;"><i class="fas fa-align-left text-primary mr-2" style="color: #173F9E;"></i> Ringkasan Kegiatan Audit</h6>
+                    <h6 class="font-weight-bold text-dark mb-2" style="font-size: 1rem;"><i class="fas fa-align-left mr-2" style="color: var(--theme-primary, #173F9E);"></i> Ringkasan Kegiatan Audit</h6>
                     <p class="text-muted mb-0" style="line-height: 1.75; font-size: 0.95rem;">
                         {{ $minute->summary ?? 'Tidak ada ringkasan tertulis.' }}
                     </p>
@@ -99,7 +99,7 @@
                                             <div class="text-muted" style="font-size: 0.8rem;">Dokumen Laporan Resmi SPI</div>
                                         </div>
                                     </div>
-                                    <span class="btn btn-sm sispi-btn-primary rounded-pill px-3" style="font-size: 0.8rem;"><i class="fas fa-download mr-1"></i> Unduh PDF</span>
+                                    <span class="btn btn-sm text-white rounded-pill px-3" style="background: var(--theme-primary, #173F9E) !important; font-size: 0.8rem; font-weight: 700;"><i class="fas fa-download mr-1"></i> Unduh PDF</span>
                                 </a>
                             @endforeach
                         </div>
@@ -107,7 +107,7 @@
                 @endif
             </div>
             <div class="modal-footer bg-white border-top p-3 px-4">
-                <button type="button" class="btn btn-secondary rounded-pill px-4" data-dismiss="modal" style="font-weight: 700; font-size: 0.875rem;">Tutup Modal</button>
+                <button type="button" class="btn btn-secondary rounded-pill px-4" data-dismiss="modal" style="font-weight: 700; font-size: 0.875rem;">Tutup Detail</button>
             </div>
         </div>
     </div>

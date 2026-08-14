@@ -17,6 +17,29 @@
     <link rel="stylesheet" href="{{ asset('css/sispi-theme.css') }}">
 
     <style>
+        /* ── Dynamic Theme Variables (Super Admin configurable) ── */
+        :root {
+            --theme-primary:           {{ $landingSettings['theme_primary_color']           ?? '#173F9E' }};
+            --theme-secondary:         {{ $landingSettings['theme_secondary_color']          ?? '#F4A623' }};
+            --theme-bg:                {{ $landingSettings['theme_bg_color']                 ?? '#F7F9FC' }};
+            --theme-dark:              {{ $landingSettings['theme_dark_bg']                  ?? '#0B1736' }};
+            --card-grad-start:         {{ $landingSettings['floating_card_gradient_start']   ?? '#2557D6' }};
+            --card-grad-end:           {{ $landingSettings['floating_card_gradient_end']     ?? '#173F9E' }};
+            --card-icon-color:         {{ $landingSettings['floating_card_icon_color']       ?? '#173F9E' }};
+            --feature-card-start:     {{ $landingSettings['feature_card_gradient_start']  ?? '#2557D6' }};
+            --feature-card-end:       {{ $landingSettings['feature_card_gradient_end']    ?? '#173F9E' }};
+            --feature-card-icon-color:{{ $landingSettings['feature_card_icon_color']      ?? '#173F9E' }};
+            --cta-bg-color:           {{ $landingSettings['cta_bg_color']                ?? '#0B1736' }};
+            --footer-bg-color:        {{ $landingSettings['footer_bg_color']             ?? '#0B1736' }};
+
+            /* Override SISPI Design System Root Variables */
+            --sispi-primary: var(--theme-primary);
+            --sispi-primary-hover: var(--theme-primary);
+            --sispi-secondary: var(--theme-dark);
+            --sispi-accent: var(--theme-secondary);
+            --sispi-bg: var(--theme-bg);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -29,7 +52,7 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: #F7F9FC;
+            background: var(--theme-bg);
             color: #111827;
             overflow-x: hidden;
         }
@@ -90,7 +113,7 @@
         .nav-brand-text {
             font-size: 1.4rem;
             font-weight: 800;
-            color: #173F9E;
+            color: var(--theme-primary);
             letter-spacing: -0.01em;
         }
 
@@ -114,7 +137,7 @@
         }
 
         .nav-item-link:hover, .nav-item-link.active {
-            color: #173F9E;
+            color: var(--theme-primary);
         }
 
         /* Active Indicator Underline */
@@ -126,7 +149,7 @@
             transform: translateX(-50%);
             width: 0;
             height: 3px;
-            background: #173F9E;
+            background: var(--theme-primary);
             border-radius: 4px;
             transition: width 0.25s ease;
         }
@@ -143,8 +166,8 @@
 
         .btn-nav-masuk {
             padding: 9px 22px;
-            border: 2px solid #173F9E;
-            color: #173F9E !important;
+            border: 2px solid var(--theme-primary);
+            color: var(--theme-primary) !important;
             font-weight: 700;
             font-size: 0.9rem;
             border-radius: 12px;
@@ -154,13 +177,14 @@
         }
 
         .btn-nav-masuk:hover {
-            background: rgba(23, 63, 158, 0.06);
+            background: var(--theme-primary);
+            color: #FFFFFF !important;
             transform: scale(1.02);
         }
 
         .btn-nav-daftar {
             padding: 9px 22px;
-            background: #173F9E;
+            background: var(--theme-primary);
             color: #FFFFFF !important;
             font-weight: 700;
             font-size: 0.9rem;
@@ -172,8 +196,43 @@
         }
 
         .btn-nav-daftar:hover {
-            background: #123382;
+            background: var(--theme-primary);
+            filter: brightness(0.9);
             transform: scale(1.02);
+        }
+
+        .sispi-btn-primary {
+            background: var(--theme-primary) !important;
+            color: #FFFFFF !important;
+        }
+
+        .sispi-btn-primary:hover {
+            background: var(--theme-primary) !important;
+            filter: brightness(0.9);
+        }
+
+        .sispi-btn-outline {
+            color: var(--theme-primary) !important;
+            border-color: var(--theme-primary) !important;
+        }
+
+        .sispi-btn-outline:hover {
+            background: var(--theme-primary) !important;
+            color: #FFFFFF !important;
+        }
+
+        .sispi-badge-blue {
+            background: rgba(23, 63, 158, 0.08);
+            color: var(--theme-primary) !important;
+            border: 1px solid rgba(23, 63, 158, 0.15);
+        }
+
+        .cta-navy-gradient-banner {
+            background: var(--theme-dark) !important;
+        }
+
+        .sispi-footer-navy {
+            background: var(--theme-dark) !important;
         }
 
         .hamburger-btn {
@@ -255,7 +314,7 @@
             border-radius: 999px;
             font-size: 0.8rem;
             font-weight: 800;
-            color: #173F9E;
+            color: var(--theme-primary);
             letter-spacing: 0.04em;
             text-transform: uppercase;
             margin-bottom: 24px;
@@ -271,7 +330,7 @@
         }
 
         .hero-main-h1 span.highlight-text {
-            color: #173F9E;
+            color: var(--theme-primary);
             position: relative;
             display: inline-block;
             z-index: 1;
@@ -284,7 +343,7 @@
             left: 0;
             right: 0;
             height: 6px;
-            background: #F4A623;
+            background: var(--theme-secondary);
             border-radius: 3px;
             z-index: -1;
         }
@@ -325,7 +384,7 @@
         }
 
         .hero-animated-glass-card {
-            background: linear-gradient(145deg, #2557D6 0%, #173F9E 100%);
+            background: linear-gradient(145deg, var(--card-grad-start) 0%, var(--card-grad-end) 100%);
             border: 1px solid rgba(255, 255, 255, 0.25);
             border-radius: 28px;
             padding: 40px 36px;
@@ -333,7 +392,7 @@
             color: #FFFFFF;
             display: flex;
             flex-direction: column;
-            animation: heroCardFloatMotion 5s ease-in-out infinite;
+            animation: {{ ($landingSettings['floating_card_animation'] ?? '1') == '1' ? 'heroCardFloatMotion 5s ease-in-out infinite' : 'none' }};
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
             will-change: transform;
         }
@@ -349,7 +408,7 @@
             height: 64px;
             background: #FFFFFF;
             border-radius: 20px;
-            color: #173F9E;
+            color: var(--card-icon-color);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -745,7 +804,7 @@
            BERANDA — CTA Section Full Width
         ---------------------------------------------------- */
         .cta-navy-gradient-banner {
-            background: linear-gradient(135deg, #0B1736 0%, #173F9E 100%);
+            background: var(--cta-bg-color) !important;
             color: #FFFFFF;
             padding: 85px 32px;
             text-align: center;
@@ -769,7 +828,7 @@
 
         .cta-btn-white-solid {
             background: #FFFFFF;
-            color: #173F9E !important;
+            color: var(--theme-primary) !important;
             font-weight: 700;
             font-size: 1rem;
             padding: 14px 32px;
@@ -786,7 +845,7 @@
             transform: translateY(-3px);
             box-shadow: 0 14px 32px rgba(0, 0, 0, 0.25);
             background: #F8FAFC;
-            color: #173F9E !important;
+            color: var(--theme-primary) !important;
         }
 
         .cta-btn-outline-white {
@@ -842,7 +901,7 @@
         }
 
         .feature-card-blue-animated {
-            background: linear-gradient(145deg, #2557D6 0%, #173F9E 100%);
+            background: linear-gradient(145deg, var(--feature-card-start) 0%, var(--feature-card-end) 100%);
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 24px;
             padding: 36px 32px;
@@ -853,7 +912,7 @@
             position: relative;
             overflow: hidden;
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.4s ease;
-            animation: cardFloatVertical 6s ease-in-out infinite;
+            animation: {{ ($landingSettings['features_animation'] ?? '1') == '1' ? 'cardFloatVertical 6s ease-in-out infinite' : 'none' }};
             will-change: transform;
         }
 
@@ -876,7 +935,7 @@
             height: 58px;
             background: #FFFFFF;
             border-radius: 18px;
-            color: #173F9E;
+            color: var(--feature-card-icon-color);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1095,7 +1154,7 @@
            FOOTER
         ---------------------------------------------------- */
         footer.sispi-footer-navy {
-            background: #0B1736;
+            background: var(--footer-bg-color) !important;
             color: #94A3B8;
             padding: 80px 0 36px;
         }
@@ -1288,26 +1347,33 @@
                 <!-- KIRI: Dot Badge, Headline, Description, Buttons, Micro Trust Row -->
                 <div>
                     <div class="hero-badge-tag">
-                        <span style="width: 6px; height: 6px; background: #173F9E; border-radius: 50%; display: inline-block;"></span>
-                        SISTEM INFORMASI SPI
+                        <span style="width: 6px; height: 6px; background: var(--theme-primary); border-radius: 50%; display: inline-block;"></span>
+                        {{ $landingSettings['hero_badge_text'] ?? 'SISTEM INFORMASI SPI' }}
                     </div>
 
                     <h1 class="hero-main-h1">
-                        Sistem Informasi<br>
-                        Supervisi dan<br>
-                        <span class="highlight-text">Pengawasan Internal</span>
+                        @php
+                            $fullTitle = $landingSettings['hero_title'] ?? 'Sistem Informasi Supervisi dan Pengawasan Internal';
+                            $hlText   = $landingSettings['hero_highlight_text'] ?? 'Pengawasan Internal';
+                            if ($hlText && str_contains($fullTitle, $hlText)) {
+                                [$before, $after] = explode($hlText, $fullTitle, 2);
+                                echo e($before) . '<span class="highlight-text">' . e($hlText) . '</span>' . e($after);
+                            } else {
+                                echo e($fullTitle);
+                            }
+                        @endphp
                     </h1>
 
                     <p class="hero-desc-p">
-                        Solusi digital terpadu untuk manajemen audit internal, penilaian resiko, dan monitoring tindak lanjut yang efektif dan efesien.
+                        {{ $landingSettings['hero_description'] ?? 'Solusi digital terpadu untuk manajemen audit internal, penilaian resiko, dan monitoring tindak lanjut yang efektif dan efesien.' }}
                     </p>
 
                     <div class="hero-btn-row">
-                        <a href="{{ route('login') }}" class="sispi-btn sispi-btn-primary">
-                            <span>Mulai Sekarang →</span>
+                        <a href="{{ url($landingSettings['hero_btn_primary_url'] ?? '/login') }}" class="sispi-btn sispi-btn-primary">
+                            <span>{{ $landingSettings['hero_btn_primary_text'] ?? 'Mulai Sekarang →' }}</span>
                         </a>
-                        <a href="#tentang" class="sispi-btn sispi-btn-outline">
-                            Pelajari Lebih Lanjut
+                        <a href="{{ $landingSettings['hero_btn_secondary_url'] ?? '#tentang' }}" class="sispi-btn sispi-btn-outline">
+                            {{ $landingSettings['hero_btn_secondary_text'] ?? 'Pelajari Lebih Lanjut' }}
                         </a>
                     </div>
 
@@ -1318,17 +1384,29 @@
                     </div>
                 </div>
 
-                <!-- KANAN: ANIMATED BLUE GLASS CARD (FLOATING MOTION) -->
+                <!-- KANAN: Card atau Gambar sesuai pengaturan Super Admin -->
                 <div>
-                    <div class="hero-animated-card-container">
-                        <div class="hero-animated-glass-card">
-                            <div class="hero-card-white-icon">
-                                <i class="fas fa-clipboard-check"></i>
-                            </div>
-                            <h3>Audit Management</h3>
-                            <p>Kelola seluruh proses audit internal dengan sistematis, dari perencanaan hingga pelaporan hasil audit.</p>
+                    @php $heroMode = $landingSettings['hero_display_mode'] ?? 'card'; @endphp
+
+                    @if($heroMode === 'image' && !empty($landingSettings['hero_image']))
+                        {{-- MODE GAMBAR --}}
+                        <div style="display:flex;align-items:center;justify-content:center;">
+                            <img src="{{ asset('landing_images/' . $landingSettings['hero_image']) }}"
+                                 alt="{{ $landingSettings['hero_image_alt'] ?? 'Ilustrasi SISPI' }}"
+                                 style="width:100%;max-width:520px;border-radius:24px;object-fit:cover;box-shadow:0 24px 60px rgba(23,63,158,0.18);animation:{{ ($landingSettings['floating_card_animation'] ?? '1') == '1' ? 'heroCardFloatMotion 5s ease-in-out infinite' : 'none' }};">
                         </div>
-                    </div>
+                    @else
+                        {{-- MODE KARTU (default) --}}
+                        <div class="hero-animated-card-container">
+                            <div class="hero-animated-glass-card">
+                                <div class="hero-card-white-icon">
+                                    <i class="{{ $landingSettings['floating_card_icon'] ?? 'fas fa-clipboard-check' }}"></i>
+                                </div>
+                                <h3>{{ $landingSettings['floating_card_title'] ?? 'Audit Management' }}</h3>
+                                <p>{{ $landingSettings['floating_card_desc'] ?? 'Kelola seluruh proses audit internal dengan sistematis, dari perencanaan hingga pelaporan hasil audit.' }}</p>
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -1341,13 +1419,13 @@
             <!-- Centered Header -->
             <div class="text-center mx-auto" style="max-width: 760px; margin: 0 auto 56px; text-align: center;">
                 <div class="d-flex justify-content-center mb-3">
-                    <span class="sispi-badge sispi-badge-blue">TENTANG KAMI</span>
+                    <span class="sispi-badge sispi-badge-blue">{{ $landingSettings['about_badge'] ?? 'TENTANG KAMI' }}</span>
                 </div>
                 <h2 style="font-size: 2.75rem; font-weight: 800; margin-bottom: 16px; text-align: center;">
-                    Transformasi Digital untuk <span style="color: #173F9E;">Audit Internal</span>
+                    {{ $landingSettings['about_title'] ?? 'Transformasi Digital untuk Audit Internal' }}
                 </h2>
                 <p style="color: #64748B; font-size: 1.1rem; line-height: 1.7; margin: 0 auto; text-align: center; max-width: 680px;">
-                    SISPI hadir sebagai solusi komprehensif untuk meningkatkan efektivitas pengawasan internal organisasi Anda melalui digitalisasi proses audit.
+                    {{ $landingSettings['about_description'] ?? 'SISPI hadir sebagai solusi komprehensif untuk meningkatkan efektivitas pengawasan internal organisasi Anda melalui digitalisasi proses audit.' }}
                 </p>
             </div>
 
@@ -1355,48 +1433,51 @@
                 <!-- KIRI: Detail Deskripsi & Checklist Items -->
                 <div>
                     <h3 style="font-size: 1.75rem; font-weight: 800; color: #111827; margin-bottom: 16px;">
-                        Mengapa Memilih SISPI?
+                        {{ $landingSettings['about_why_title'] ?? 'Mengapa Memilih SISPI?' }}
                     </h3>
 
                     <p style="color: #64748B; font-size: 1rem; line-height: 1.7; margin-bottom: 16px;">
-                        Sispi dirancang khusus untuk memenuhi kebutuhan audit internal yang modern dan efisien. Dengan fitur-fitur lengkap dan interface yang user-friendly, kami membantu tim audit Anda bekerja lebih produktif.
+                        {{ $landingSettings['about_why_p1'] ?? 'Sispi dirancang khusus untuk memenuhi kebutuhan audit internal yang modern dan efisien. Dengan fitur-fitur lengkap dan interface yang user-friendly, kami membantu tim audit Anda bekerja lebih produktif.' }}
                     </p>
 
                     <p style="color: #64748B; font-size: 1rem; line-height: 1.7; margin-bottom: 24px;">
-                        Sistem kami mengintegrasikan seluruh proses pengawasan internal, mulai dari penyusunan peta resiko, pelaksanaan audit, hingga monitoring tindak lanjut rekomendasi.
+                        {{ $landingSettings['about_why_p2'] ?? 'Sistem kami mengintegrasikan seluruh proses pengawasan internal, mulai dari penyusunan peta resiko, pelaksanaan audit, hingga monitoring tindak lanjut rekomendasi.' }}
                     </p>
 
-                    <!-- Checklist Items (Larger Font Size & Bold) -->
+                    @php
+                        $aboutChecklists = [];
+                        if (!empty($landingSettings['about_checklists'])) {
+                            $aboutChecklists = json_decode($landingSettings['about_checklists'], true);
+                        }
+                        if (!is_array($aboutChecklists) || empty($aboutChecklists)) {
+                            $aboutChecklists = array_filter([
+                                $landingSettings['about_checklist_1'] ?? 'Manajemen audit terintegrasi dan terstruktur',
+                                $landingSettings['about_checklist_2'] ?? 'Peta risiko yang komprehensif dan real-time',
+                                $landingSettings['about_checklist_3'] ?? 'Sistem kolaborasi tim yang efektif',
+                                $landingSettings['about_checklist_4'] ?? 'Keamanan data tingkat enterprise',
+                            ]);
+                        }
+                    @endphp
+                    <!-- Checklist Items (Dynamic Add/Remove) -->
                     <div class="d-flex flex-column gap-3 mb-4">
-                        <div class="d-flex align-items-center gap-3" style="font-weight: 700; color: #111827; font-size: 1.15rem; margin-bottom: 12px;">
-                            <i class="fas fa-check text-primary" style="color: #173F9E; font-size: 1.25rem;"></i>
-                            <span>Manajemen audit terintegrasi dan terstruktur</span>
-                        </div>
-
-                        <div class="d-flex align-items-center gap-3" style="font-weight: 700; color: #111827; font-size: 1.15rem; margin-bottom: 12px;">
-                            <i class="fas fa-check text-primary" style="color: #173F9E; font-size: 1.25rem;"></i>
-                            <span>Peta risiko yang komprehensif dan real-time</span>
-                        </div>
-
-                        <div class="d-flex align-items-center gap-3" style="font-weight: 700; color: #111827; font-size: 1.15rem; margin-bottom: 12px;">
-                            <i class="fas fa-check text-primary" style="color: #173F9E; font-size: 1.25rem;"></i>
-                            <span>Sistem kolaborasi tim yang efektif</span>
-                        </div>
-
-                        <div class="d-flex align-items-center gap-3" style="font-weight: 700; color: #111827; font-size: 1.15rem; margin-bottom: 12px;">
-                            <i class="fas fa-check text-primary" style="color: #173F9E; font-size: 1.25rem;"></i>
-                            <span>Keamanan data tingkat enterprise</span>
-                        </div>
+                        @foreach($aboutChecklists as $chkItem)
+                            @if(trim($chkItem) !== '')
+                            <div class="d-flex align-items-center gap-3" style="font-weight: 700; color: #111827; font-size: 1.15rem; margin-bottom: 12px;">
+                                <i class="fas fa-check" style="color: var(--theme-primary); font-size: 1.25rem;"></i>
+                                <span>{{ $chkItem }}</span>
+                            </div>
+                            @endif
+                        @endforeach
                     </div>
                 </div>
 
                 <!-- KANAN: STATISTIK PENGAWASAN (ROYAL BLUE GRADIENT & GLASSMORPHISM) -->
                 <div>
-                    <div style="background: linear-gradient(145deg, #2557D6 0%, #173F9E 100%); border-radius: 24px; padding: 36px 32px; box-shadow: 0 20px 50px rgba(23, 63, 158, 0.35); border: 1px solid rgba(255, 255, 255, 0.25);">
+                    <div style="background: linear-gradient(145deg, var(--card-grad-start) 0%, var(--card-grad-end) 100%); border-radius: 24px; padding: 36px 32px; box-shadow: 0 20px 50px rgba(23, 63, 158, 0.35); border: 1px solid rgba(255, 255, 255, 0.25);">
                         <!-- Header Tag inside Card -->
                         <div class="d-flex align-items-center justify-content-between mb-4 pb-2 border-bottom" style="border-color: rgba(255, 255, 255, 0.2) !important;">
                             <div>
-                                <span style="color: #F4A623; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;">STATISTIK PENGAWASAN</span>
+                                <span style="color: var(--theme-secondary); font-size: 0.75rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;">STATISTIK PENGAWASAN</span>
                                 <h4 style="color: #FFFFFF; font-size: 1.2rem; font-weight: 800; margin: 0;">Portal SPI Polinema</h4>
                             </div>
                             <div style="width: 36px; height: 36px; background: rgba(255, 255, 255, 0.15); border-radius: 50%; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 1rem;">
@@ -1407,7 +1488,7 @@
                         <!-- 2x2 Glassmorphism Metric Grid -->
                         <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
                             <div style="background: rgba(255, 255, 255, 0.12); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.22); border-radius: 18px; padding: 20px;">
-                                <div style="width: 38px; height: 38px; background: #FFFFFF; border-radius: 12px; color: #173F9E; display: flex; align-items: center; justify-content: center; font-size: 1.05rem; margin-bottom: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                                <div style="width: 38px; height: 38px; background: #FFFFFF; border-radius: 12px; color: var(--theme-primary); display: flex; align-items: center; justify-content: center; font-size: 1.05rem; margin-bottom: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
                                     <i class="fas fa-clipboard-check"></i>
                                 </div>
                                 <div style="color: #FFFFFF; font-size: 2.1rem; font-weight: 800; line-height: 1; margin-bottom: 6px;">{{ $welcomeStats[0]['display'] ?? '24' }}</div>
@@ -1423,7 +1504,7 @@
                             </div>
 
                             <div style="background: rgba(255, 255, 255, 0.12); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.22); border-radius: 18px; padding: 20px;">
-                                <div style="width: 38px; height: 38px; background: #FFFFFF; border-radius: 12px; color: #173F9E; display: flex; align-items: center; justify-content: center; font-size: 1.05rem; margin-bottom: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                                <div style="width: 38px; height: 38px; background: #FFFFFF; border-radius: 12px; color: var(--theme-primary); display: flex; align-items: center; justify-content: center; font-size: 1.05rem; margin-bottom: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
                                     <i class="fas fa-building-columns"></i>
                                 </div>
                                 <div style="color: #FFFFFF; font-size: 2.1rem; font-weight: 800; line-height: 1; margin-bottom: 6px;">{{ $welcomeStats[2]['display'] ?? '93' }}</div>
@@ -1431,7 +1512,7 @@
                             </div>
 
                             <div style="background: rgba(255, 255, 255, 0.12); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.22); border-radius: 18px; padding: 20px;">
-                                <div style="width: 38px; height: 38px; background: #FFFFFF; border-radius: 12px; color: #173F9E; display: flex; align-items: center; justify-content: center; font-size: 1.05rem; margin-bottom: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                                <div style="width: 38px; height: 38px; background: #FFFFFF; border-radius: 12px; color: var(--theme-primary); display: flex; align-items: center; justify-content: center; font-size: 1.05rem; margin-bottom: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
                                     <i class="fas fa-file-signature"></i>
                                 </div>
                                 <div style="color: #FFFFFF; font-size: 2.1rem; font-weight: 800; line-height: 1; margin-bottom: 6px;">{{ $welcomeStats[3]['display'] ?? '6' }}</div>
@@ -1444,31 +1525,31 @@
 
             <!-- Prinsip Pengawasan Internal (5 Cards) -->
             <div style="margin-top: 60px;">
-                <h3 class="text-center font-weight-bold mb-4" style="font-size: 2rem;">Prinsip Pengawasan Internal</h3>
+                <h3 class="text-center font-weight-bold mb-4" style="font-size: 2rem;">{{ $landingSettings['about_principles_title'] ?? 'Prinsip Pengawasan Internal' }}</h3>
                 <div class="about-values-grid">
                     <div class="about-value-card">
-                        <i class="fas fa-shield text-primary mb-2" style="font-size: 1.5rem; color: #173F9E;"></i>
-                        <h4 style="font-size:1.05rem; font-weight:700;">Integritas</h4>
+                        <i class="fas fa-shield mb-2" style="font-size: 1.5rem; color: var(--theme-primary);"></i>
+                        <h4 style="font-size:1.05rem; font-weight:700;">{{ $landingSettings['about_principle_1'] ?? 'Integritas' }}</h4>
                     </div>
 
                     <div class="about-value-card">
-                        <i class="fas fa-eye text-primary mb-2" style="font-size: 1.5rem; color: #173F9E;"></i>
-                        <h4 style="font-size:1.05rem; font-weight:700;">Transparansi</h4>
+                        <i class="fas fa-eye mb-2" style="font-size: 1.5rem; color: var(--theme-primary);"></i>
+                        <h4 style="font-size:1.05rem; font-weight:700;">{{ $landingSettings['about_principle_2'] ?? 'Transparansi' }}</h4>
                     </div>
 
                     <div class="about-value-card">
-                        <i class="fas fa-scale-balanced text-primary mb-2" style="font-size: 1.5rem; color: #173F9E;"></i>
-                        <h4 style="font-size:1.05rem; font-weight:700;">Akuntabilitas</h4>
+                        <i class="fas fa-scale-balanced mb-2" style="font-size: 1.5rem; color: var(--theme-primary);"></i>
+                        <h4 style="font-size:1.05rem; font-weight:700;">{{ $landingSettings['about_principle_3'] ?? 'Akuntabilitas' }}</h4>
                     </div>
 
                     <div class="about-value-card">
-                        <i class="fas fa-user-tie text-primary mb-2" style="font-size: 1.5rem; color: #173F9E;"></i>
-                        <h4 style="font-size:1.05rem; font-weight:700;">Profesionalisme</h4>
+                        <i class="fas fa-user-tie mb-2" style="font-size: 1.5rem; color: var(--theme-primary);"></i>
+                        <h4 style="font-size:1.05rem; font-weight:700;">{{ $landingSettings['about_principle_4'] ?? 'Profesionalisme' }}</h4>
                     </div>
 
                     <div class="about-value-card">
-                        <i class="fas fa-bolt text-primary mb-2" style="font-size: 1.5rem; color: #173F9E;"></i>
-                        <h4 style="font-size:1.05rem; font-weight:700;">Efektivitas</h4>
+                        <i class="fas fa-bolt mb-2" style="font-size: 1.5rem; color: var(--theme-primary);"></i>
+                        <h4 style="font-size:1.05rem; font-weight:700;">{{ $landingSettings['about_principle_5'] ?? 'Efektivitas' }}</h4>
                     </div>
                 </div>
             </div>
@@ -1481,49 +1562,49 @@
         <div class="sispi-container">
             <div class="text-center mx-auto" style="max-width: 760px; margin: 0 auto 56px; text-align: center;">
                 <div class="d-flex justify-content-center mb-3">
-                    <span class="sispi-badge sispi-badge-blue">FITUR UNGGULAN</span>
+                    <span class="sispi-badge sispi-badge-blue">{{ $landingSettings['features_badge'] ?? 'FITUR UNGGULAN' }}</span>
                 </div>
-                <h2>Fitur Lengkap untuk Audit yang Efektif</h2>
+                <h2>{{ $landingSettings['features_title'] ?? 'Fitur Lengkap untuk Audit yang Efektif' }}</h2>
                 <p style="color: #64748B; font-size: 1.05rem; margin-top: 12px;">
-                    Berbagai fitur canggih yang dirancang untuk mendukung setiap tahapan proses audit internal Anda.
+                    {{ $landingSettings['features_description'] ?? 'Berbagai fitur canggih yang dirancang untuk mendukung setiap tahapan proses audit internal Anda.' }}
                 </p>
             </div>
 
             <div class="features-grid-3">
                 <div class="feature-card-blue-animated">
                     <div class="feature-icon-white-box"><i class="fas fa-clipboard-check"></i></div>
-                    <h3>Manajemen Audit</h3>
-                    <p>Kelola kegiatan audit internal dengan sistematis, termasuk perencanaan, pelaksanaan, dan pelaporan hasil audit secara digital.</p>
+                    <h3>{{ $landingSettings['feature_1_title'] ?? 'Manajemen Audit' }}</h3>
+                    <p>{{ $landingSettings['feature_1_desc'] ?? 'Kelola kegiatan audit internal dengan sistematis, termasuk perencanaan, pelaksanaan, dan pelaporan hasil audit secara digital.' }}</p>
                 </div>
 
                 <div class="feature-card-blue-animated">
                     <div class="feature-icon-white-box"><i class="fas fa-chart-pie"></i></div>
-                    <h3>Peta Risiko</h3>
-                    <p>Identifikasi dan analisis risiko organisasi dengan visualisasi matriks risiko yang mudah dipahami dan dikelola.</p>
+                    <h3>{{ $landingSettings['feature_2_title'] ?? 'Peta Risiko' }}</h3>
+                    <p>{{ $landingSettings['feature_2_desc'] ?? 'Identifikasi dan analisis risiko organisasi dengan visualisasi matriks risiko yang mudah dipahami dan dikelola.' }}</p>
                 </div>
 
                 <div class="feature-card-blue-animated">
                     <div class="feature-icon-white-box"><i class="fas fa-file-signature"></i></div>
-                    <h3>Laporan & Dokumentasi</h3>
-                    <p>Buat laporan audit yang profesional dan kelola seluruh dokumentasi dengan sistem penyimpanan digital yang aman.</p>
+                    <h3>{{ $landingSettings['feature_3_title'] ?? 'Laporan & Dokumentasi' }}</h3>
+                    <p>{{ $landingSettings['feature_3_desc'] ?? 'Buat laporan audit yang profesional dan kelola seluruh dokumentasi dengan sistem penyimpanan digital yang aman.' }}</p>
                 </div>
 
                 <div class="feature-card-blue-animated">
                     <div class="feature-icon-white-box"><i class="fas fa-users-gear"></i></div>
-                    <h3>Kolaborasi Tim</h3>
-                    <p>Koordinasi antar tim audit dengan sistem approval, komentar, dan notifikasi yang terintegrasi untuk workflow yang efisien.</p>
+                    <h3>{{ $landingSettings['feature_4_title'] ?? 'Kolaborasi Tim' }}</h3>
+                    <p>{{ $landingSettings['feature_4_desc'] ?? 'Koordinasi antar tim audit dengan sistem approval, komentar, dan notifikasi yang terintegrasi untuk workflow yang efisien.' }}</p>
                 </div>
 
                 <div class="feature-card-blue-animated">
                     <div class="feature-icon-white-box"><i class="fas fa-clipboard-list"></i></div>
-                    <h3>Monitoring Tindak Lanjut</h3>
-                    <p>Pantau dan evaluasi implementasi rekomendasi audit dengan sistem tracking yang efektif dan real-time monitoring.</p>
+                    <h3>{{ $landingSettings['feature_5_title'] ?? 'Monitoring Tindak Lanjut' }}</h3>
+                    <p>{{ $landingSettings['feature_5_desc'] ?? 'Pantau dan evaluasi implementasi rekomendasi audit dengan sistem tracking yang efektif dan real-time monitoring.' }}</p>
                 </div>
 
                 <div class="feature-card-blue-animated">
                     <div class="feature-icon-white-box"><i class="fas fa-lock"></i></div>
-                    <h3>Keamanan Data</h3>
-                    <p>Proteksi data dengan sistem keamanan berlapis, verifikasi email, dan kontrol akses berbasis role yang ketat.</p>
+                    <h3>{{ $landingSettings['feature_6_title'] ?? 'Keamanan Data' }}</h3>
+                    <p>{{ $landingSettings['feature_6_desc'] ?? 'Proteksi data dengan sistem keamanan berlapis, verifikasi email, dan kontrol akses berbasis role yang ketat.' }}</p>
                 </div>
             </div>
         </div>
@@ -1533,10 +1614,10 @@
     <section id="berita-acara" style="padding: 90px 0; background: #F7F9FC;">
         <div class="sispi-container">
             <div class="text-center" style="max-width: 720px; margin: 0 auto 40px;">
-                <span class="sispi-badge sispi-badge-blue mb-3">Berita Acara</span>
-                <h2>Ringkasan Kegiatan Terbaru</h2>
+                <span class="sispi-badge sispi-badge-blue mb-3">{{ $landingSettings['berita_badge'] ?? 'Berita Acara' }}</span>
+                <h2>{{ $landingSettings['berita_title'] ?? 'Ringkasan Kegiatan Terbaru' }}</h2>
                 <p style="color: #64748B; font-size: 1.05rem; margin-top: 12px;">
-                    Pantau berita acara terbaru lengkap dengan dokumentasi rapat dan bukti visual.
+                    {{ $landingSettings['berita_description'] ?? 'Pantau berita acara terbaru lengkap dengan dokumentasi rapat dan bukti visual.' }}
                 </p>
             </div>
 
@@ -1552,8 +1633,8 @@
                 @if (!empty($moreMinutesExist))
                     <div class="text-center mt-4">
                         <a href="{{ route('welcome.berita-acara') }}" class="sispi-btn sispi-btn-primary">
-                            <span>Lihat Semua Berita Acara</span>
-                            <i class="fas fa-arrow-right"></i>
+                            <span>{{ $landingSettings['berita_btn_text'] ?? 'Lihat Semua Berita Acara' }}</span>
+                            <i class="fas fa-arrow-right ml-1"></i>
                         </a>
                     </div>
                 @endif
@@ -1569,11 +1650,11 @@
     <!-- BERANDA — CTA SECTION FULL WIDTH -->
     <section class="cta-navy-gradient-banner">
         <div class="sispi-container" style="position:relative; z-index:2;">
-            <h2>Siap Meningkatkan Efektivitas Audit Internal Anda?</h2>
-            <p>Bergabunglah dengan organisasi-organisasi yang telah mempercayai SISPI untuk transformasi digital audit internal mereka.</p>
+            <h2>{{ $landingSettings['cta_title'] ?? 'Siap Meningkatkan Efektivitas Audit Internal Anda?' }}</h2>
+            <p>{{ $landingSettings['cta_description'] ?? 'Bergabunglah dengan organisasi-organisasi yang telah mempercayai SISPI untuk transformasi digital audit internal mereka.' }}</p>
             <div class="d-flex justify-content-center align-items-center gap-3 flex-wrap mt-4" style="gap: 16px;">
                 <a href="{{ route('login') }}" class="cta-btn-white-solid">
-                    <span>Mulai Sekarang</span>
+                    <span>{{ $landingSettings['cta_btn_text'] ?? 'Mulai Sekarang' }}</span>
                     <i class="fas fa-arrow-right"></i>
                 </a>
                 @if (Route::has('register'))
@@ -1591,7 +1672,7 @@
             <div class="footer-cols-grid">
                 <div>
                     <h3 style="color:#ffffff; font-weight:800; margin-bottom:16px;">SISPI</h3>
-                    <p style="font-size:0.925rem; line-height:1.7;">Sistem Informasi Supervisi dan Pengawasan Internal yang dirancang untuk meningkatkan efektivitas audit internal organisasi Anda.</p>
+                    <p style="font-size:0.925rem; line-height:1.7;">{{ $landingSettings['footer_about'] ?? 'Sistem Informasi Supervisi dan Pengawasan Internal yang dirancang untuk meningkatkan efektivitas audit internal organisasi Anda.' }}</p>
                 </div>
 
                 <div>
@@ -1624,7 +1705,7 @@
             </div>
 
             <div class="footer-copy-text">
-                &copy;  {{ date('Y') }} SISPI. Sistem Informasi Supervisi dan Pengawasan Internal. All rights reserved.
+                &copy; {{ date('Y') }} {{ $landingSettings['footer_copyright'] ?? 'SISPI. Sistem Informasi Supervisi dan Pengawasan Internal. All rights reserved.' }}
             </div>
         </div>
     </footer>
@@ -1688,6 +1769,21 @@
     <script src="{{ asset('library/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('library/popper.js/dist/umd/popper.js') }}"></script>
     <script src="{{ asset('library/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+
+    {{-- Tombol Edit Web Profil (hanya untuk Super Admin yang sudah login) --}}
+    @auth
+        @if(auth()->user()->id_level == 1)
+        <a href="{{ route('admin.landing-settings.index') }}"
+           title="Edit Web Profil"
+           style="position:fixed;bottom:24px;right:24px;z-index:9999;display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:#173F9E;color:#fff;font-weight:700;font-size:0.82rem;border-radius:999px;text-decoration:none;box-shadow:0 8px 24px rgba(23,63,158,0.4);border:2px solid rgba(255,255,255,0.2);transition:all 0.2s ease;"
+           onmouseover="this.style.background='#123382';this.style.transform='translateY(-2px)';"
+           onmouseout="this.style.background='#173F9E';this.style.transform='none';">
+            <i class="fas fa-pen-to-square"></i>
+            Edit Web Profil
+        </a>
+        @endif
+    @endauth
+
 </body>
 
 </html>

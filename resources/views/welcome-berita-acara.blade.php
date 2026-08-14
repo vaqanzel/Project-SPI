@@ -1,13 +1,25 @@
 @extends('layout.app')
 @section('title', 'Berita Acara')
 
-@php($isWelcomePage = true)
+@php
+    $isWelcomePage = true;
+    $landingSettings = \App\Models\LandingPageSetting::getSettings();
+@endphp
 
 @push('style')
     <link rel="stylesheet" href="{{ asset('css/sispi-theme.css') }}">
     <style>
+        :root {
+            --theme-primary: {{ $landingSettings['theme_primary_color'] ?? '#173F9E' }};
+            --sispi-primary: {{ $landingSettings['theme_primary_color'] ?? '#173F9E' }};
+            --sispi-primary-hover: {{ $landingSettings['theme_primary_color'] ?? '#173F9E' }};
+            --theme-secondary: {{ $landingSettings['theme_secondary_color'] ?? '#F4A623' }};
+            --theme-bg: {{ $landingSettings['theme_bg_color'] ?? '#F7F9FC' }};
+            --theme-dark: {{ $landingSettings['theme_dark_bg'] ?? '#0B1736' }};
+        }
+
         body {
-            background: #F7F9FC;
+            background: var(--theme-bg);
         }
 
         #app .main-wrapper {
@@ -20,7 +32,7 @@
         }
 
         .welcome-berita-hero {
-            background: linear-gradient(135deg, #0B1736 0%, #173F9E 100%);
+            background: linear-gradient(135deg, var(--theme-dark) 0%, var(--theme-primary) 100%);
             color: #FFFFFF;
             padding: 125px 0 70px;
             position: relative;
@@ -61,7 +73,7 @@
 
         .search-input-field:focus {
             background: #FFFFFF;
-            border-color: #173F9E;
+            border-color: var(--theme-primary);
             box-shadow: 0 0 0 4px rgba(23, 63, 158, 0.1);
             outline: none;
         }
@@ -79,9 +91,16 @@
         }
 
         .filter-chip-btn:hover, .filter-chip-btn.active {
-            background: #173F9E;
+            background: var(--theme-primary);
             color: #FFFFFF;
-            border-color: #173F9E;
+            border-color: var(--theme-primary);
+        }
+
+        .header-back-btn:hover {
+            background: rgba(255, 255, 255, 0.28) !important;
+            border-color: #FFFFFF !important;
+            color: #FFFFFF !important;
+            transform: translateY(-2px);
         }
     </style>
 @endpush
@@ -91,13 +110,15 @@
         <!-- Hero Section -->
         <header class="welcome-berita-hero">
             <div class="sispi-container text-center">
-                <span class="sispi-badge sispi-badge-gold mb-3">Berita Acara</span>
-                <h1 style="font-size: 2.75rem; font-weight: 800; color: #ffffff; margin-bottom: 12px;">Ringkasan Kegiatan</h1>
+                <span class="sispi-badge mb-3" style="background: rgba(244, 166, 35, 0.2); color: #FFD166; border: 1px solid rgba(244, 166, 35, 0.4); font-weight: 800; font-size: 0.825rem; padding: 6px 16px; border-radius: 999px;">
+                    {{ $landingSettings['berita_badge'] ?? 'Berita Acara' }}
+                </span>
+                <h1 style="font-size: 2.75rem; font-weight: 800; color: #ffffff; margin-bottom: 12px;">{{ $landingSettings['berita_title'] ?? 'Ringkasan Kegiatan' }}</h1>
                 <p style="font-size: 1.1rem; color: #CBD5E1; max-width: 640px; margin: 0 auto 24px;">
-                    Pantau berita acara terbaru lengkap dengan dokumentasi rapat dan bukti visual.
+                    {{ $landingSettings['berita_description'] ?? 'Pantau berita acara terbaru lengkap dengan dokumentasi rapat dan bukti visual.' }}
                 </p>
-                <a href="{{ url('/') }}" class="sispi-btn sispi-btn-outline" style="border-color: rgba(255,255,255,0.4); color: #ffffff !important; padding: 8px 20px;">
-                    <i class="fas fa-arrow-left mr-1"></i> Kembali ke Beranda
+                <a href="{{ url('/') }}" class="btn rounded-pill px-4 py-2 font-weight-bold text-white text-decoration-none header-back-btn" style="background: rgba(255, 255, 255, 0.15); border: 1.5px solid rgba(255, 255, 255, 0.4); backdrop-filter: blur(8px); display: inline-flex; align-items: center; gap: 8px; transition: all 0.25s ease;">
+                    <i class="fas fa-arrow-left"></i> Kembali ke Beranda
                 </a>
             </div>
         </header>
@@ -122,7 +143,7 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="btn-group w-100">
-                                    <button type="submit" class="sispi-btn sispi-btn-primary flex-fill" style="padding: 10px;">
+                                    <button type="submit" class="sispi-btn flex-fill" style="padding: 10px; background: var(--theme-primary, #173F9E) !important; color: #FFFFFF !important; border: none; border-radius: 12px; font-weight: 700;">
                                         Cari
                                     </button>
                                     <a href="{{ route('welcome.berita-acara') }}" class="btn btn-outline-secondary d-flex align-items-center justify-content-center px-3" style="border-radius: 12px;">

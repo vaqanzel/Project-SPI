@@ -26,9 +26,11 @@ use App\Http\Controllers\RTMController;
 use App\Http\Controllers\ImportedExcelController;
 use App\Http\Controllers\WelcomeBeritaAcaraController;
 use App\Http\Controllers\BeritaAcaraController;
+use App\Http\Controllers\LandingPageSettingController;
 use App\Models\BeritaAcara;
 use App\Models\Post;
 use App\Models\UnitKerja;
+use App\Models\LandingPageSetting;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
@@ -358,12 +360,20 @@ $welcomePage = function () {
     ];
 
     $auditProgressPercent = $totalAudits > 0 ? (int) round(($completedAudits / $totalAudits) * 100) : 0;
+    $landingSettings = LandingPageSetting::getSettings();
 
-    return view('welcome', compact('beritaAcaras', 'moreMinutesExist', 'welcomeStats', 'auditProgressPercent'));
+    return view('welcome', compact('beritaAcaras', 'moreMinutesExist', 'welcomeStats', 'auditProgressPercent', 'landingSettings'));
 };
 
 Route::get('/welcome', $welcomePage)->name('welcome');
 Route::get('/', $welcomePage);
+
+// ─── Super Admin: Pengaturan Web Profil (Landing Page) ───
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/landing-settings',        [LandingPageSettingController::class, 'index'])->name('landing-settings.index');
+    Route::post('/landing-settings',       [LandingPageSettingController::class, 'update'])->name('landing-settings.update');
+    Route::post('/landing-settings/reset', [LandingPageSettingController::class, 'reset'])->name('landing-settings.reset');
+});
 
 Route::get('/welcome/berita-acara', function (Request $request) {
     $search = $request->input('search');

@@ -2,8 +2,16 @@
 
 @section('title', 'Register')
 
+@php
+    $registerThemePrimary = \App\Models\LandingPageSetting::getSettings()['theme_primary_color'] ?? '#173F9E';
+@endphp
+
 @push('style')
     <style>
+        :root {
+            --auth-primary: {{ $registerThemePrimary }};
+        }
+
         .auth-form-header {
             margin-bottom: 24px;
         }
@@ -65,7 +73,7 @@
         .input-wrapper .form-control:focus,
         .input-wrapper select.form-control:focus {
             background-color: #FFFFFF;
-            border-color: #173F9E;
+            border-color: var(--auth-primary);
             box-shadow: 0 0 0 4px rgba(23, 63, 158, 0.1);
             outline: none;
         }
@@ -87,7 +95,7 @@
         .btn-register-action {
             height: 48px;
             padding: 0 28px;
-            background: #173F9E;
+            background: var(--auth-primary) !important;
             border: none;
             border-radius: 12px;
             color: #FFFFFF;
@@ -103,7 +111,8 @@
         }
 
         .btn-register-action:hover {
-            background: #123382;
+            background: var(--auth-primary) !important;
+            filter: brightness(0.9);
             transform: scale(1.01);
         }
 
@@ -302,7 +311,7 @@
 
         <div class="text-center mt-3 pt-2 border-top">
             <span style="color: #64748B; font-size: 0.875rem;">Sudah memiliki akun?</span>
-            <a href="{{ route('login') }}" style="color: #173F9E; font-weight: 700; font-size: 0.875rem; text-decoration: none; margin-left: 4px;">
+            <a href="{{ route('login') }}" style="color: var(--auth-primary); font-weight: 700; font-size: 0.875rem; text-decoration: none; margin-left: 4px;">
                 Masuk
             </a>
         </div>

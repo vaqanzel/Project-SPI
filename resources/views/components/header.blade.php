@@ -113,6 +113,18 @@
                     <span>Feedback</span>
                 </a>
 
+                {{-- Pengaturan Web Profil (Super Admin only) --}}
+                @if(auth()->user()->id_level == 1)
+                <div style="height:1px; background:#F1F5F9; margin:4px 0;"></div>
+                <a href="{{ route('admin.landing-settings.index') }}" class="dropdown-item"
+                   style="display:flex; align-items:center; gap:10px; padding:9px 12px; border-radius:8px; color:#173F9E; font-size:0.83rem; font-weight:600; transition:all 0.12s ease; text-decoration:none; background:#EAF0FF;"
+                   onmouseover="this.style.background='#DBEAFE'; this.style.color='#1D4ED8';"
+                   onmouseout="this.style.background='#EAF0FF'; this.style.color='#173F9E';">
+                    <i class="fas fa-sliders" style="width:16px; text-align:center; font-size:0.85rem;"></i>
+                    <span>Pengaturan Web Profil</span>
+                </a>
+                @endif
+
                 <div style="height:1px; background:#F1F5F9; margin:4px 0;"></div>
 
                 <a href="{{ route('logout') }}" class="dropdown-item"
